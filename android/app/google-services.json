@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1042835924290",
+    "project_id": "sitin-538d2",
+    "storage_bucket": "sitin-538d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042835924290:android:6ef187d1190959464314db",
+        "android_client_info": {
+          "package_name": "com.example.sitin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042835924290-vkol86jb6eklnoeub3elcouajm504lc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6dV-nRLq33hDDUABeear8MPzgAtjWOqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042835924290-vkol86jb6eklnoeub3elcouajm504lc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
