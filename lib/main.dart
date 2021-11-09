@@ -7,6 +7,7 @@ import 'package:sitinapp/src/settings/settings_controller.dart';
 import 'package:sitinapp/src/settings/settings_service.dart';
 
 void main() async {
+  //this app belongs to bond
   WidgetsFlutterBinding.ensureInitialized();
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
