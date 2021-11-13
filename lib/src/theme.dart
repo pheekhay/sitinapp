@@ -81,9 +81,16 @@ class SitInTheme {
           },
         ),
       ),
+      buttonTheme: ButtonThemeData(buttonColor: Colors.brown[800]),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.brown,
         backgroundColor: Colors.white,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.brown),
+          overlayColor: MaterialStateProperty.all(Colors.brown),
+        ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
@@ -91,6 +98,18 @@ class SitInTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.brown,
+      ),
+      // textButtonTheme: TextButtonThemeData(
+      //   style: ButtonStyle(
+      //     backgroundColor: MaterialStateProperty.all(Colors.brown),
+      //     overlayColor: MaterialStateProperty.all(Colors.brown),
+      //   ),
+      // ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.brown),
+          overlayColor: MaterialStateProperty.all(Colors.brown),
+        ),
       ),
       textTheme: lightTextTheme,
     );
@@ -108,8 +127,27 @@ class SitInTheme {
         foregroundColor: Colors.white,
         backgroundColor: Colors.green,
       ),
+      buttonTheme: ButtonThemeData(buttonColor: Colors.brown[200]),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.green,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.brown),
+          overlayColor: MaterialStateProperty.all(Colors.brown),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.brown),
+          overlayColor: MaterialStateProperty.all(Colors.brown),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.brown),
+          overlayColor: MaterialStateProperty.all(Colors.brown),
+        ),
       ),
       textTheme: darkTextTheme,
     );

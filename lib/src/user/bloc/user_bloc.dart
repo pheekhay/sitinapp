@@ -24,7 +24,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             add(SaveUser(user));
           }
         } catch (e) {
-          log(e.toString());
+          log("user_bloc: ${e.toString()}");
           emit(LoadingError(e.toString()));
         }
       } else if (event is SignOutUser) {
@@ -73,11 +73,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UserDatabaseServiceInterface userdb;
   final LocalCacheInterface cache;
 
-  @override
-  void onChange(Change<UserState> change) {
-    log("currentstate :" + change.currentState.toString());
-    log("nextState :" + change.nextState.toString());
-    log(change.toString());
-    super.onChange(change);
-  }
+  // @override
+  // void onChange(Change<UserState> change) {
+  //   log("currentstate :" + change.currentState.toString());
+  //   log("nextState :" + change.nextState.toString());
+  //   log(change.toString());
+  //   super.onChange(change);
+  // }
 }

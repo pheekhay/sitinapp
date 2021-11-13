@@ -188,31 +188,30 @@ class _BookingState extends State<Booking> {
     ScrollController scrollController,
     double bottomSheetOffset,
   ) {
-    return Material(
-      child: Container(
-        width: 100.w,
-        height: 80.h,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: const SingleChildScrollView(
-          child: ReservationStepper(),
-        ),
+    return Card(
+      // width: 100.w,
+      // height: 100.h,
+      // decoration: const BoxDecoration(
+      //   color: Colors.amber,
+      //   borderRadius: BorderRadius.only(
+      //     topLeft: Radius.circular(20),
+      //     topRight: Radius.circular(20),
+      //   ),
+      // ),
+      child: const SingleChildScrollView(
+        child: ReservationStepper(),
       ),
     );
   }
 
   void showSheet(BuildContext context) {
     showFlexibleBottomSheet(
-      minHeight: 0,
+      minHeight: 0.2,
       initHeight: 0.5,
       maxHeight: 1,
       context: context,
       builder: _buildBottomSheet,
-      anchors: [0, 0.5, 1],
+      anchors: [0.2, 0.5, 1],
     );
   }
 }

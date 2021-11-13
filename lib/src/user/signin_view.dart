@@ -16,7 +16,8 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CachedBloc>(
-      create: (_) => getDep(),
+      create: (_) =>
+          getDep<CachedBloc>()..add(const CachedEvent.loadFromLocal()),
       child: BlocListener<CachedBloc, CachedState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -31,7 +32,6 @@ class SignInView extends StatelessWidget {
         },
         child: Scaffold(
             body: BlocConsumer<UserBloc, UserState>(
-          bloc: BlocProvider.of<UserBloc>(context),
           listener: (context, state) {
             if (state is LoadedUser) {
               log("State is Loaded User");

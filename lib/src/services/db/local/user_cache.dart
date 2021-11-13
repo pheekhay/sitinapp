@@ -21,6 +21,6 @@ class LocalCache implements LocalCacheInterface {
 
   @override
   Future<void> saveToCache(Customer customer) {
-    return cache.putAt(0, customer);
+    return cache.put(0, customer);
   }
 }
