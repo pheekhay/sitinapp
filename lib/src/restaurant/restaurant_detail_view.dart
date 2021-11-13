@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sitinapp/src/models/restaurant.dart';
 import 'package:sitinapp/src/widgets/booking_widgets.dart';
 import 'package:sitinapp/src/widgets/reviews_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class RestaurantDetailView extends StatefulWidget {
-  const RestaurantDetailView({Key? key}) : super(key: key);
+  const RestaurantDetailView({Key? key, required this.restaurant})
+      : super(key: key);
   static const String routeName = "/restaurant_details";
+  final Restaurant restaurant;
   @override
   _RestaurantDetailViewState createState() => _RestaurantDetailViewState();
 }
@@ -45,11 +48,12 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView>
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: const NetworkImage(
-                        "https://www.iloveqatar.net/public/images/local/open-restaurent-2.jpeg",
-                      ),
-                      onError: (err, stacktrace) {}),
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      widget.restaurant.photoUrl,
+                    ),
+                    onError: (err, stacktrace) {},
+                  ),
                 ),
               ),
               stretchModes: const [StretchMode.blurBackground],
@@ -63,7 +67,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView>
                 child: Padding(
                   padding: EdgeInsets.only(top: 2.0.h),
                   child: Text(
-                    "Potbelly shack",
+                    widget.restaurant.name,
                     style: GoogleFonts.openSans(
                       fontWeight: FontWeight.w600,
                       letterSpacing: 2,
@@ -80,12 +84,13 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     RatingStars(
+                      value: widget.restaurant.cummulativeRating,
                       starCount: 1,
                       maxValueVisibility: false,
                       valueLabelVisibility: false,
                     ),
                     Text(
-                      " 3.8 (265) . Italian",
+                      " ${widget.restaurant.cummulativeRating} (${widget.restaurant.ratings?.length ?? 0}) . ${widget.restaurant.cusine}",
                       style: GoogleFonts.openSans(
                         fontSize: 9.sp,
                         color: Colors.brown,
@@ -116,7 +121,9 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView>
                 child: TabBarView(
                   controller: _controller,
                   children: [
-                    Booking(),
+                    Booking(
+                      restaurant: widget.restaurant,
+                    ),
                     Reviews(),
                   ],
                 ),

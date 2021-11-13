@@ -30,7 +30,8 @@ class _$RestaurantTearOff {
       required DateTime closingTime,
       required Location location,
       required List<String>? tags,
-      required double cummulativeRating,
+      String? specialNote,
+      double cummulativeRating = 0.0,
       required List<SitTable> tables,
       required bool isReservable,
       required List<SitInRating>? ratings,
@@ -45,6 +46,7 @@ class _$RestaurantTearOff {
       closingTime: closingTime,
       location: location,
       tags: tags,
+      specialNote: specialNote,
       cummulativeRating: cummulativeRating,
       tables: tables,
       isReservable: isReservable,
@@ -72,6 +74,7 @@ mixin _$Restaurant {
   DateTime get closingTime => throw _privateConstructorUsedError;
   Location get location => throw _privateConstructorUsedError;
   List<String>? get tags => throw _privateConstructorUsedError;
+  String? get specialNote => throw _privateConstructorUsedError;
   double get cummulativeRating => throw _privateConstructorUsedError;
   List<SitTable> get tables => throw _privateConstructorUsedError;
   bool get isReservable => throw _privateConstructorUsedError;
@@ -99,6 +102,7 @@ abstract class $RestaurantCopyWith<$Res> {
       DateTime closingTime,
       Location location,
       List<String>? tags,
+      String? specialNote,
       double cummulativeRating,
       List<SitTable> tables,
       bool isReservable,
@@ -127,6 +131,7 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
     Object? closingTime = freezed,
     Object? location = freezed,
     Object? tags = freezed,
+    Object? specialNote = freezed,
     Object? cummulativeRating = freezed,
     Object? tables = freezed,
     Object? isReservable = freezed,
@@ -167,6 +172,10 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      specialNote: specialNote == freezed
+          ? _value.specialNote
+          : specialNote // ignore: cast_nullable_to_non_nullable
+              as String?,
       cummulativeRating: cummulativeRating == freezed
           ? _value.cummulativeRating
           : cummulativeRating // ignore: cast_nullable_to_non_nullable
@@ -217,6 +226,7 @@ abstract class _$RestaurantCopyWith<$Res> implements $RestaurantCopyWith<$Res> {
       DateTime closingTime,
       Location location,
       List<String>? tags,
+      String? specialNote,
       double cummulativeRating,
       List<SitTable> tables,
       bool isReservable,
@@ -248,6 +258,7 @@ class __$RestaurantCopyWithImpl<$Res> extends _$RestaurantCopyWithImpl<$Res>
     Object? closingTime = freezed,
     Object? location = freezed,
     Object? tags = freezed,
+    Object? specialNote = freezed,
     Object? cummulativeRating = freezed,
     Object? tables = freezed,
     Object? isReservable = freezed,
@@ -288,6 +299,10 @@ class __$RestaurantCopyWithImpl<$Res> extends _$RestaurantCopyWithImpl<$Res>
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      specialNote: specialNote == freezed
+          ? _value.specialNote
+          : specialNote // ignore: cast_nullable_to_non_nullable
+              as String?,
       cummulativeRating: cummulativeRating == freezed
           ? _value.cummulativeRating
           : cummulativeRating // ignore: cast_nullable_to_non_nullable
@@ -329,7 +344,8 @@ class _$_Restaurant extends _Restaurant {
       required this.closingTime,
       required this.location,
       required this.tags,
-      required this.cummulativeRating,
+      this.specialNote,
+      this.cummulativeRating = 0.0,
       required this.tables,
       required this.isReservable,
       required this.ratings,
@@ -357,6 +373,9 @@ class _$_Restaurant extends _Restaurant {
   @override
   final List<String>? tags;
   @override
+  final String? specialNote;
+  @JsonKey(defaultValue: 0.0)
+  @override
   final double cummulativeRating;
   @override
   final List<SitTable> tables;
@@ -371,7 +390,7 @@ class _$_Restaurant extends _Restaurant {
 
   @override
   String toString() {
-    return 'Restaurant(id: $id, name: $name, cusine: $cusine, phoneNumber: $phoneNumber, photoUrl: $photoUrl, closingTime: $closingTime, location: $location, tags: $tags, cummulativeRating: $cummulativeRating, tables: $tables, isReservable: $isReservable, ratings: $ratings, reserations: $reserations, photos: $photos)';
+    return 'Restaurant(id: $id, name: $name, cusine: $cusine, phoneNumber: $phoneNumber, photoUrl: $photoUrl, closingTime: $closingTime, location: $location, tags: $tags, specialNote: $specialNote, cummulativeRating: $cummulativeRating, tables: $tables, isReservable: $isReservable, ratings: $ratings, reserations: $reserations, photos: $photos)';
   }
 
   @override
@@ -391,6 +410,8 @@ class _$_Restaurant extends _Restaurant {
             (identical(other.location, location) ||
                 other.location == location) &&
             const DeepCollectionEquality().equals(other.tags, tags) &&
+            (identical(other.specialNote, specialNote) ||
+                other.specialNote == specialNote) &&
             (identical(other.cummulativeRating, cummulativeRating) ||
                 other.cummulativeRating == cummulativeRating) &&
             const DeepCollectionEquality().equals(other.tables, tables) &&
@@ -413,6 +434,7 @@ class _$_Restaurant extends _Restaurant {
       closingTime,
       location,
       const DeepCollectionEquality().hash(tags),
+      specialNote,
       cummulativeRating,
       const DeepCollectionEquality().hash(tables),
       isReservable,
@@ -441,7 +463,8 @@ abstract class _Restaurant extends Restaurant {
       required DateTime closingTime,
       required Location location,
       required List<String>? tags,
-      required double cummulativeRating,
+      String? specialNote,
+      double cummulativeRating,
       required List<SitTable> tables,
       required bool isReservable,
       required List<SitInRating>? ratings,
@@ -468,6 +491,8 @@ abstract class _Restaurant extends Restaurant {
   Location get location;
   @override
   List<String>? get tags;
+  @override
+  String? get specialNote;
   @override
   double get cummulativeRating;
   @override

@@ -3,14 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sitinapp/src/models/restaurant.dart';
 import 'package:sitinapp/src/theme.dart';
 import 'package:sitinapp/src/widgets/reservation_stepper.dart';
 import 'package:sizer/sizer.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 
 class Booking extends StatefulWidget {
-  Booking({Key? key}) : super(key: key);
-
+  const Booking({Key? key, required this.restaurant}) : super(key: key);
+  final Restaurant restaurant;
   @override
   State<Booking> createState() => _BookingState();
 }
@@ -18,7 +19,13 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   late GoogleMapController _mapController;
 
-  final LatLng _coordinates = const LatLng(5.55602, -0.1969);
+  late LatLng _coordinates;
+  @override
+  void initState() {
+    _coordinates =
+        LatLng(widget.restaurant.location.lat, widget.restaurant.location.long);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +33,13 @@ class _BookingState extends State<Booking> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text("Special Note"),
+        const Text("Special Note"),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text.rich(
             TextSpan(
-                text:
-                    """ Nulla laborum magna sint amet aliqua amet dolor consectetur non sunt.Consectetur mollit esse cillum pariatur amet.Voluptate qui pariatur veniam anim consectetur et incididunt proident sunt occaecat aliquip laborum. Est eiusmod esse magna consectetur consectetur pariatur labore mollit aliquip duis. 
-              Consequat tempor eiusmod sint aliqua laboris proident do id sunt enim est eu do fugiat.Reprehenderit irure ullamco consequat ad incididunt incididunt est.
-               Occaecat dolore ea aute laborum consequat commodo nostrud ex ex enim.
-                    """),
+                text: widget.restaurant.specialNote ??
+                    "Welcome to ${widget.restaurant.name}"),
           ),
         ),
         Text(
@@ -62,7 +66,8 @@ class _BookingState extends State<Booking> {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       image: NetworkImage(
-                          "https://www.iloveqatar.net/public/images/local/open-restaurent-2.jpeg"),
+                        widget.restaurant.photos![index],
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -76,7 +81,7 @@ class _BookingState extends State<Booking> {
                 //   return const SizedBox.shrink();
                 // }
               },
-              itemCount: 6),
+              itemCount: widget.restaurant.photos?.length ?? 0),
         ),
         Container(
           margin: EdgeInsets.only(top: 3.h, bottom: 3.h),
@@ -109,7 +114,7 @@ class _BookingState extends State<Booking> {
                     text: "Phone: ",
                     children: [
                       TextSpan(
-                        text: "0532324324",
+                        text: widget.restaurant.phoneNumber,
                         style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.normal,
                             color: Colors.brown,
@@ -128,7 +133,7 @@ class _BookingState extends State<Booking> {
                     text: "Cuisine:",
                     children: [
                       TextSpan(
-                        text: "Italian",
+                        text: widget.restaurant.cusine,
                         style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.normal,
                             color: Colors.brown,
@@ -173,7 +178,7 @@ class _BookingState extends State<Booking> {
           onPressed: () {
             showSheet(context);
           },
-          child: Text("Make Reservation"),
+          child: const Text("Make Reservation"),
         ),
       ],
     );
@@ -188,7 +193,7 @@ class _BookingState extends State<Booking> {
     ScrollController scrollController,
     double bottomSheetOffset,
   ) {
-    return Card(
+    return const Card(
       // width: 100.w,
       // height: 100.h,
       // decoration: const BoxDecoration(
@@ -198,7 +203,7 @@ class _BookingState extends State<Booking> {
       //     topRight: Radius.circular(20),
       //   ),
       // ),
-      child: const SingleChildScrollView(
+      child: SingleChildScrollView(
         child: ReservationStepper(),
       ),
     );

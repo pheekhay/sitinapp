@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sitinapp/dependency_injection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sitinapp/src/models/restaurant.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
 import 'package:sitinapp/src/restaurant/restaurant_detail_view.dart';
 import 'package:sitinapp/src/restaurant/restaurants_view.dart';
@@ -91,7 +92,9 @@ class SitIn extends StatelessWidget {
                       case ReservationsView.routeName:
                         return const ReservationsView();
                       case RestaurantDetailView.routeName:
-                        return RestaurantDetailView();
+                        return RestaurantDetailView(
+                          restaurant: routeSettings.arguments as Restaurant,
+                        );
                       case ProfileView.routeName:
                         return const ProfileView();
                       case SettingsView.routeName:

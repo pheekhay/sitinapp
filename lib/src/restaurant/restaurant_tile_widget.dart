@@ -9,9 +9,10 @@ import 'package:sizer/sizer.dart';
 class RestaurantTile extends StatelessWidget {
   const RestaurantTile({Key? key, this.restaurant}) : super(key: key);
   final Restaurant? restaurant;
-  final double starcount = 5;
+
   @override
   Widget build(BuildContext context) {
+    final double starcount = restaurant?.cummulativeRating ?? 0;
     return Card(
       elevation: 0,
       child: Row(
@@ -23,8 +24,7 @@ class RestaurantTile extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
-                  image: NetworkImage(restaurant?.photoUrl ??
-                      "https://www.iloveqatar.net/public/images/local/open-restaurent-2.jpeg"),
+                  image: NetworkImage(restaurant?.photoUrl ?? ""),
                   fit: BoxFit.cover,
                   onError: (err, trace) {
                     log(trace.toString() + err.toString());
@@ -42,14 +42,14 @@ class RestaurantTile extends StatelessWidget {
                     arguments: restaurant);
               },
               isThreeLine: true,
-              title: Text("Potbelly Shack"),
+              title: Text(restaurant?.name ?? "Unknown"),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   RatingStars(
-                    value: 3,
+                    value: restaurant?.cummulativeRating ?? 0,
                     onValueChanged: (v) {
                       //
                       // setState(() {
@@ -64,7 +64,7 @@ class RestaurantTile extends StatelessWidget {
                     starSize: 20,
                     valueLabelColor: starcount < 3
                         ? Colors.red
-                        : starcount == 3
+                        : starcount >= 3 && starcount <= 4.8
                             ? Colors.green
                             : Colors.amber,
                     valueLabelTextStyle: const TextStyle(
@@ -84,8 +84,8 @@ class RestaurantTile extends StatelessWidget {
                     starOffColor: const Color(0xffe7e8ea),
                     starColor: Colors.yellow,
                   ),
-                  Text("Italian"),
-                  Text("East Legon,Accra")
+                  Text(restaurant?.cusine ?? "cusine unknown"),
+                  Text(restaurant?.location.name ?? "Accra")
                 ],
               ),
             ),

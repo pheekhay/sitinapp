@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_location.dart';
@@ -21,7 +22,8 @@ class Restaurant with _$Restaurant {
     required DateTime closingTime,
     required Location location,
     required List<String>? tags,
-    required double cummulativeRating,
+    String? specialNote,
+    @Default(0.0) double cummulativeRating,
     required List<SitTable> tables,
     required bool isReservable,
     required List<SitInRating>? ratings,

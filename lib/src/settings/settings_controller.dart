@@ -10,6 +10,7 @@ import 'package:sitinapp/src/firebasenotification.dart';
 import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
+import 'package:sitinapp/src/utils/populate_restaurant.dart';
 import 'settings_service.dart';
 
 /// A class that many Widgets can interact with to read user settings, update
@@ -60,6 +61,7 @@ class SettingsController with ChangeNotifier {
     //   storageDirectory: await getApplicationDocumentsDirectory(),
     // );
     await initDep();
+    // PopulateRestaurant().batchWrite();
     // Important! Inform listeners a change has occurred.
     notifyListeners();
   }
