@@ -193,7 +193,7 @@ class _BookingState extends State<Booking> {
     ScrollController scrollController,
     double bottomSheetOffset,
   ) {
-    return const Card(
+    return Card(
       // width: 100.w,
       // height: 100.h,
       // decoration: const BoxDecoration(
@@ -204,7 +204,10 @@ class _BookingState extends State<Booking> {
       //   ),
       // ),
       child: SingleChildScrollView(
-        child: ReservationStepper(),
+        child: ReservationStepper(
+          restaurantPhoto: widget.restaurant.photoUrl,
+          restaurantName: widget.restaurant.name,
+        ),
       ),
     );
   }

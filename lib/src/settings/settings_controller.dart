@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sitinapp/dependency_injection.dart';
-import 'package:sitinapp/src/firebasenotification.dart';
+import 'package:sitinapp/src/notifications/firebasenotification.dart';
 import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
@@ -42,6 +42,9 @@ class SettingsController with ChangeNotifier {
     Hive.registerAdapter(CustomerAdapter()); //0
     Hive.registerAdapter(SitTableAdapter()); //2
     Hive.registerAdapter(TableLocationAdapter()); //3
+    Hive.registerAdapter(ReservationStatusAdapter()); //4
+    Hive.registerAdapter(CustomerStatusAdapter()); //5
+
     await Hive.openBox<Customer>("userData");
     firebaseApp = await Firebase.initializeApp();
     FirebaseMessaging messaging = FirebaseMessaging.instance;

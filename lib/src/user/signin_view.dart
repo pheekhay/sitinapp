@@ -1,23 +1,90 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sitinapp/dependency_injection.dart';
 import 'package:sitinapp/src/services/db/local/bloc/cached_bloc.dart';
 import 'package:sitinapp/src/theme.dart';
-import 'package:sitinapp/src/user/bloc/user_bloc.dart';
+import 'package:sitinapp/src/user/reservations_view.dart';
+import 'package:sitinapp/src/user/user_Bloc/user_bloc.dart';
 import 'package:sitinapp/src/widgets/loading_widget.dart';
 import 'package:sizer/sizer.dart';
 
-class SignInView extends StatelessWidget {
+class SignInView extends StatefulWidget {
   const SignInView({Key? key}) : super(key: key);
   static const String routeName = "/";
+
+  @override
+  State<SignInView> createState() => _SignInViewState();
+}
+
+class _SignInViewState extends State<SignInView> {
+  @override
+  void initState() {
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isAllowed) {
+        if (!isAllowed) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Allow Notifications'),
+              content: const Text('Our app would like to send you notifications'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Don\'t Allow',
+                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => AwesomeNotifications().requestPermissionToSendNotifications().then((_) => Navigator.pop(context)),
+                  child: const Text(
+                    'Allow',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
+
+    AwesomeNotifications().actionStream.listen((notification) {
+      if (notification.channelKey == 'scheduled_channel' && Platform.isIOS) {
+        AwesomeNotifications().getGlobalBadgeCounter().then(
+              (value) => AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+            );
+      } else if (notification.channelKey == "scheduled_channel") {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ReservationsView(
+                reservationId: notification.payload!['id'],
+                arrived: notification.buttonKeyPressed,
+              ),
+            ),
+            (route) => route.isFirst);
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CachedBloc>(
-      create: (_) =>
-          getDep<CachedBloc>()..add(const CachedEvent.loadFromLocal()),
+      create: (_) => getDep<CachedBloc>()..add(const CachedEvent.loadFromLocal()),
       child: BlocListener<CachedBloc, CachedState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -68,22 +135,17 @@ class SignInView extends StatelessWidget {
                       const Spacer(),
                       CircleAvatar(
                         radius: 60.sp,
-                        backgroundImage:
-                            const AssetImage("assets/images/Logo.jpeg"),
+                        backgroundImage: const AssetImage("assets/images/Logo.jpeg"),
                       ),
                       const Spacer(),
                       const Text(
                         "Welcome ",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.redAccent),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.redAccent),
                       ),
                       const Spacer(),
                       TextButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.grey[400]),
+                          backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
                           elevation: MaterialStateProperty.all(2),
                           fixedSize: MaterialStateProperty.all(Size(50.w, 6.h)),
                           shape: MaterialStateProperty.all(
@@ -119,8 +181,7 @@ class SignInView extends StatelessWidget {
                             ),
                             Text(
                               "OR",
-                              style: TextStyle(
-                                  fontSize: 10, color: Colors.grey[300]),
+                              style: TextStyle(fontSize: 10, color: Colors.grey[300]),
                             ),
                             Container(
                               color: Colors.grey[300],
@@ -138,9 +199,7 @@ class SignInView extends StatelessWidget {
                         onPressed: () {
                           context.read<UserBloc>().add(const SignInUser());
                         },
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white)),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -153,8 +212,7 @@ class SignInView extends StatelessWidget {
                             ),
                             Text(
                               "Sign In With Google",
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: Colors.black),
+                              style: TextStyle(fontSize: 12.sp, color: Colors.black),
                             ),
                           ],
                         ),
@@ -183,22 +241,17 @@ class SignInView extends StatelessWidget {
                       const Spacer(),
                       CircleAvatar(
                         radius: 60.sp,
-                        backgroundImage:
-                            const AssetImage("assets/images/Logo.jpeg"),
+                        backgroundImage: const AssetImage("assets/images/Logo.jpeg"),
                       ),
                       const Spacer(),
                       const Text(
                         "Welcome ",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.redAccent),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.redAccent),
                       ),
                       const Spacer(),
                       TextButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.grey[100]),
+                          backgroundColor: MaterialStateProperty.all(Colors.grey[100]),
                           elevation: MaterialStateProperty.all(2),
                           fixedSize: MaterialStateProperty.all(Size(50.w, 6.h)),
                           shape: MaterialStateProperty.all(
@@ -234,8 +287,7 @@ class SignInView extends StatelessWidget {
                             ),
                             Text(
                               "OR",
-                              style: TextStyle(
-                                  fontSize: 10, color: Colors.grey[300]),
+                              style: TextStyle(fontSize: 10, color: Colors.grey[300]),
                             ),
                             Container(
                               color: Colors.grey[300],
@@ -253,9 +305,7 @@ class SignInView extends StatelessWidget {
                         onPressed: () {
                           context.read<UserBloc>().add(const SignInUser());
                         },
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white70)),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -268,8 +318,7 @@ class SignInView extends StatelessWidget {
                             ),
                             Text(
                               "Sign In With Google",
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: Colors.black),
+                              style: TextStyle(fontSize: 12.sp, color: Colors.black),
                             ),
                           ],
                         ),
@@ -284,5 +333,11 @@ class SignInView extends StatelessWidget {
         )),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    AwesomeNotifications().actionSink.close();
+    super.dispose();
   }
 }

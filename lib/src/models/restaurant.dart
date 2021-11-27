@@ -27,17 +27,15 @@ class Restaurant with _$Restaurant {
     required List<SitTable> tables,
     required bool isReservable,
     required List<SitInRating>? ratings,
-    List<Reservation>? reserations,
+    List<Reservation>? reservations,
     List<String>? photos,
   }) = _Restaurant;
-  factory Restaurant.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantFromJson(json);
+  factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
 
   Map<String, List<int>> totalWeights() {
     final service = RatingService();
     if (ratings != null) {
-      return service.totalWeights(ratings!).remove("w")
-          as Map<String, List<int>>;
+      return service.totalWeights(ratings!).remove("w") as Map<String, List<int>>;
     } else {
       return {
         "stars": [0, 0, 0, 0, 0]

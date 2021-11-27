@@ -8,7 +8,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sitinapp/dependency_injection.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
-import 'package:sitinapp/src/user/bloc/user_bloc.dart';
+import 'package:sitinapp/src/user/user_Bloc/user_bloc.dart';
 
 void main() {
   group('User Bloc', () {

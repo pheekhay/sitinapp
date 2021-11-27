@@ -9,11 +9,11 @@ import 'package:sitinapp/src/restaurant/restaurant_detail_view.dart';
 import 'package:sitinapp/src/restaurant/restaurants_view.dart';
 import 'package:sitinapp/src/settings/settings_controller.dart';
 import 'package:sitinapp/src/theme.dart';
-import 'package:sitinapp/src/user/bloc/user_bloc.dart';
 import 'package:sitinapp/src/user/homeview.dart';
 import 'package:sitinapp/src/user/profile.dart';
-import 'package:sitinapp/src/user/reservation_view.dart';
+import 'package:sitinapp/src/user/reservations_view.dart';
 import 'package:sitinapp/src/user/signin_view.dart';
+import 'package:sitinapp/src/user/user_Bloc/user_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import 'settings/settings_view.dart';
@@ -67,8 +67,7 @@ class SitIn extends StatelessWidget {
               //
               // The appTitle is defined in .arb files found in the localization
               // directory.
-              onGenerateTitle: (BuildContext context) =>
-                  AppLocalizations.of(context)!.appTitle,
+              onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
 
               // Define a light and dark color theme. Then, read the user's
               // preferred ThemeMode (light, dark, or system default) from the
@@ -85,8 +84,7 @@ class SitIn extends StatelessWidget {
                   builder: (BuildContext context) {
                     switch (routeSettings.name) {
                       case HomeView.routeName:
-                        return HomeView(
-                            user: routeSettings.arguments as Customer);
+                        return HomeView(user: routeSettings.arguments as Customer);
                       case RestaurantsListView.routeName:
                         return RestaurantsListView();
                       case ReservationsView.routeName:

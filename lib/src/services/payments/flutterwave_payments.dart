@@ -32,7 +32,7 @@ class FlutterwavePaymentGateway {
         await _restaurantRepo.getRestaurant(reservation.restaurantId);
     var html = '''<form>
   <script src="https://checkout.flutterwave.com/v3.js"></script>
- 
+  // <button type="button" onClick="makePayment()">Pay Now</button>
 </form>
 
 <script>
@@ -41,13 +41,13 @@ class FlutterwavePaymentGateway {
     
     FlutterwaveCheckout({
       tx_ref: "${reservation.id}",
-      amount: "${reservation.price}",
-      public_key: "FLWPUBK_TEST-c077fce88e67d5eb4bdd50561d50b644-X",
+      amount: "${1}",
+      public_key: "FLWPUBK_TEST-f6a44cc2c6cd063ff39f3305062e2ea8-X",
       currency: "GHS",
-      payment_options: "card,mobilemoneyghana",
-       'customer': {
-      'email': '',
-      'phonenumber': '${customer.phoneNumber}',
+      payment_options: "mobilemoneyghana",
+      customer: {
+      email: 'shane.qoubby@gmail.com',
+      phonenumber: '${customer.phoneNumber}',
       'name': '${customer.name?.split(" ").first} ${customer.name?.split(" ").last}'
       },
       callback: function (data) { 
@@ -56,6 +56,7 @@ class FlutterwavePaymentGateway {
       customizations: {
         title: "${restaurant?.name} Reservation Payment",
         description: "Pay For Reservation",
+        logo:"assets/images/logo.jpeg"
       },
     });
   }

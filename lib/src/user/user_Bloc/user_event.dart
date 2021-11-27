@@ -15,6 +15,13 @@ class SignInUser extends UserEvent {
   List<Object> get props => [isAnon];
 }
 
+class ConvertAnonymousUser extends UserEvent {
+  final String id;
+  const ConvertAnonymousUser(this.id);
+  @override
+  List<Object> get props => [id];
+}
+
 class SignOutUser extends UserEvent {}
 
 class GetUser extends UserEvent {

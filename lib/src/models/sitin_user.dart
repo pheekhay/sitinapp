@@ -16,6 +16,7 @@ class Customer with _$Customer {
     @HiveField(2) String? phoneNumber,
     @HiveField(3) List<Reservation>? reservations,
     @HiveField(4) @Default(false) bool isAnonymous,
+    @HiveField(5) String? email,
   }) = _Customer;
 
   factory Customer.fromJson(Map<String, dynamic> json) =>

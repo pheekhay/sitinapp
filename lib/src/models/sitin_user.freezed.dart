@@ -26,13 +26,15 @@ class _$CustomerTearOff {
       @HiveField(1) required String? name,
       @HiveField(2) String? phoneNumber,
       @HiveField(3) List<Reservation>? reservations,
-      @HiveField(4) bool isAnonymous = false}) {
+      @HiveField(4) bool isAnonymous = false,
+      @HiveField(5) String? email}) {
     return _Customer(
       id: id,
       name: name,
       phoneNumber: phoneNumber,
       reservations: reservations,
       isAnonymous: isAnonymous,
+      email: email,
     );
   }
 
@@ -56,6 +58,8 @@ mixin _$Customer {
   List<Reservation>? get reservations => throw _privateConstructorUsedError;
   @HiveField(4)
   bool get isAnonymous => throw _privateConstructorUsedError;
+  @HiveField(5)
+  String? get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,7 +76,8 @@ abstract class $CustomerCopyWith<$Res> {
       @HiveField(1) String? name,
       @HiveField(2) String? phoneNumber,
       @HiveField(3) List<Reservation>? reservations,
-      @HiveField(4) bool isAnonymous});
+      @HiveField(4) bool isAnonymous,
+      @HiveField(5) String? email});
 }
 
 /// @nodoc
@@ -90,6 +95,7 @@ class _$CustomerCopyWithImpl<$Res> implements $CustomerCopyWith<$Res> {
     Object? phoneNumber = freezed,
     Object? reservations = freezed,
     Object? isAnonymous = freezed,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -112,6 +118,10 @@ class _$CustomerCopyWithImpl<$Res> implements $CustomerCopyWith<$Res> {
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
               as bool,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -126,7 +136,8 @@ abstract class _$CustomerCopyWith<$Res> implements $CustomerCopyWith<$Res> {
       @HiveField(1) String? name,
       @HiveField(2) String? phoneNumber,
       @HiveField(3) List<Reservation>? reservations,
-      @HiveField(4) bool isAnonymous});
+      @HiveField(4) bool isAnonymous,
+      @HiveField(5) String? email});
 }
 
 /// @nodoc
@@ -145,6 +156,7 @@ class __$CustomerCopyWithImpl<$Res> extends _$CustomerCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? reservations = freezed,
     Object? isAnonymous = freezed,
+    Object? email = freezed,
   }) {
     return _then(_Customer(
       id: id == freezed
@@ -167,6 +179,10 @@ class __$CustomerCopyWithImpl<$Res> extends _$CustomerCopyWithImpl<$Res>
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
               as bool,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -180,7 +196,8 @@ class _$_Customer implements _Customer {
       @HiveField(1) required this.name,
       @HiveField(2) this.phoneNumber,
       @HiveField(3) this.reservations,
-      @HiveField(4) this.isAnonymous = false});
+      @HiveField(4) this.isAnonymous = false,
+      @HiveField(5) this.email});
 
   factory _$_Customer.fromJson(Map<String, dynamic> json) =>
       _$$_CustomerFromJson(json);
@@ -201,10 +218,13 @@ class _$_Customer implements _Customer {
   @override
   @HiveField(4)
   final bool isAnonymous;
+  @override
+  @HiveField(5)
+  final String? email;
 
   @override
   String toString() {
-    return 'Customer(id: $id, name: $name, phoneNumber: $phoneNumber, reservations: $reservations, isAnonymous: $isAnonymous)';
+    return 'Customer(id: $id, name: $name, phoneNumber: $phoneNumber, reservations: $reservations, isAnonymous: $isAnonymous, email: $email)';
   }
 
   @override
@@ -219,12 +239,13 @@ class _$_Customer implements _Customer {
             const DeepCollectionEquality()
                 .equals(other.reservations, reservations) &&
             (identical(other.isAnonymous, isAnonymous) ||
-                other.isAnonymous == isAnonymous));
+                other.isAnonymous == isAnonymous) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, name, phoneNumber,
-      const DeepCollectionEquality().hash(reservations), isAnonymous);
+      const DeepCollectionEquality().hash(reservations), isAnonymous, email);
 
   @JsonKey(ignore: true)
   @override
@@ -243,7 +264,8 @@ abstract class _Customer implements Customer {
       @HiveField(1) required String? name,
       @HiveField(2) String? phoneNumber,
       @HiveField(3) List<Reservation>? reservations,
-      @HiveField(4) bool isAnonymous}) = _$_Customer;
+      @HiveField(4) bool isAnonymous,
+      @HiveField(5) String? email}) = _$_Customer;
 
   factory _Customer.fromJson(Map<String, dynamic> json) = _$_Customer.fromJson;
 
@@ -262,6 +284,9 @@ abstract class _Customer implements Customer {
   @override
   @HiveField(4)
   bool get isAnonymous;
+  @override
+  @HiveField(5)
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$CustomerCopyWith<_Customer> get copyWith =>

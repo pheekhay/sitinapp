@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sitinapp/src/models/payment_model.dart';
 import 'package:sitinapp/src/models/reservation.dart';
-import 'package:sitinapp/src/services/db/user_database_service.dart';
+import 'package:sitinapp/src/services/db/reservation_database_service.dart';
 import 'package:sitinapp/src/services/payments/flutterwave_payments.dart';
 import 'package:uuid/uuid.dart';
 
@@ -16,8 +16,7 @@ class SitinPaymentBloc extends Bloc<SitinPaymentEvent, SitinPaymentState> {
     on<InitiatePayment>((event, emit) async {
       emit(const SitinPaymentState.started());
       try {
-        final result =
-            await _paymentService.makePayment(event.reservation, event.context);
+        final result = await _paymentService.makePayment(event.reservation, event.context);
 
         if (result == PaymentStatus.FAIL) {
           emit(const SitinPaymentState.failed());
@@ -25,10 +24,9 @@ class SitinPaymentBloc extends Bloc<SitinPaymentEvent, SitinPaymentState> {
           emit(const SitinPaymentState.cancelled());
         } else {
           final reserved = event.reservation.copyWith(
-            payment: SitInPayment(
-                id: const Uuid().v4(), amount: event.reservation.price),
+            payment: SitInPayment(id: const Uuid().v4(), amount: event.reservation.price),
           );
-          await _userDb.makeReservation(reservation: reserved);
+          await _reservationDb.makeReservation(reservation: reserved);
 
           emit(SitinPaymentState.completed(reserved));
         }
@@ -40,5 +38,5 @@ class SitinPaymentBloc extends Bloc<SitinPaymentEvent, SitinPaymentState> {
 
 //TODO:FIX DEPENDENCY INJECTION
   final _paymentService = FlutterwavePaymentGateway();
-  final _userDb = UserDatabaseService();
+  final _reservationDb = ReservationDatabaseService();
 }

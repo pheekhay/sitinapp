@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
 import 'package:sitinapp/src/restaurant/restaurants_view.dart';
 import 'package:sitinapp/src/user/profile.dart';
-import 'package:sitinapp/src/user/reservation_view.dart';
+import 'package:sitinapp/src/user/reservations_view.dart';
 import 'package:sitinapp/src/widgets/bottom_navigation.dart';
 
 class HomeView extends StatefulWidget {

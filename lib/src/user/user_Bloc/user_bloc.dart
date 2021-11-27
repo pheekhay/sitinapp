@@ -27,6 +27,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           log("user_bloc: ${e.toString()}");
           emit(LoadingError(e.toString()));
         }
+      } else if (event is ConvertAnonymousUser) {
+        emit(LoadingUser());
+        try {
+          var user = await RegistationService.signInWithGoogle();
+          user = user.copyWith(id: event.id);
+          add(UpdateUser(user));
+        } catch (e) {
+          log("user_bloc: ${e.toString()}");
+          emit(LoadingError(e.toString()));
+        }
       } else if (event is SignOutUser) {
         try {
           await RegistationService.signOut();

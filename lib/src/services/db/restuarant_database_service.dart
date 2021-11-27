@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_rating.dart';
 import 'package:sitinapp/src/models/restaurant.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
@@ -7,10 +8,8 @@ import 'package:sitinapp/src/models/sitin_table.dart';
 abstract class RestaurantDatabaseServiceInterface {
   //!restaurant
   Future<List<Restaurant>?> getRestaurants({double? long, double? lat});
-  Future<Restaurant> updateTable(
-      {required String restaurantId, required SitTable table});
-  Future<Restaurant> rateRestaurant(
-      {required String restaurantId, required SitInRating rating});
+  Future<Restaurant> updateTable({required String restaurantId, required SitTable table});
+  Future<Restaurant> rateRestaurant({required String restaurantId, required SitInRating rating});
 
   Future<List<Restaurant>> searchRestaurant(String name);
 
@@ -19,8 +18,7 @@ abstract class RestaurantDatabaseServiceInterface {
 
 class RestuarantDatabaseService implements RestaurantDatabaseServiceInterface {
   final db = FirebaseFirestore.instance;
-  final CollectionReference restaurants =
-      FirebaseFirestore.instance.collection("restaurants");
+  final CollectionReference restaurants = FirebaseFirestore.instance.collection("restaurants");
 
   @override
   Future<List<Restaurant>?> getRestaurants({double? long, double? lat}) async {
@@ -58,8 +56,7 @@ class RestuarantDatabaseService implements RestaurantDatabaseServiceInterface {
   }
 
   @override
-  Future<Restaurant> rateRestaurant(
-      {required String restaurantId, required SitInRating rating}) async {
+  Future<Restaurant> rateRestaurant({required String restaurantId, required SitInRating rating}) async {
     final restaurantRef = restaurants.doc(restaurantId);
     return db.runTransaction<Restaurant>((transaction) async {
       final restaurantDocument = await transaction.get(restaurantRef);
@@ -97,8 +94,7 @@ class RestuarantDatabaseService implements RestaurantDatabaseServiceInterface {
   }
 
   @override
-  Future<Restaurant> updateTable(
-      {required String restaurantId, required SitTable table}) {
+  Future<Restaurant> updateTable({required String restaurantId, required SitTable table}) {
     final restaurantRef = restaurants.doc(restaurantId);
     return db.runTransaction<Restaurant>((transaction) async {
       final restaurantDocument = await transaction.get(restaurantRef);

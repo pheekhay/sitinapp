@@ -22,13 +22,14 @@ class CustomerAdapter extends TypeAdapter<Customer> {
       phoneNumber: fields[2] as String?,
       reservations: (fields[3] as List?)?.cast<Reservation>(),
       isAnonymous: fields[4] as bool,
+      email: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Customer obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class CustomerAdapter extends TypeAdapter<Customer> {
       ..writeByte(3)
       ..write(obj.reservations)
       ..writeByte(4)
-      ..write(obj.isAnonymous);
+      ..write(obj.isAnonymous)
+      ..writeByte(5)
+      ..write(obj.email);
   }
 
   @override
@@ -64,6 +67,7 @@ _$_Customer _$$_CustomerFromJson(Map<String, dynamic> json) => _$_Customer(
           ?.map((e) => Reservation.fromJson(e as Map<String, dynamic>))
           .toList(),
       isAnonymous: json['isAnonymous'] as bool? ?? false,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$$_CustomerToJson(_$_Customer instance) =>
@@ -73,4 +77,5 @@ Map<String, dynamic> _$$_CustomerToJson(_$_Customer instance) =>
       'phoneNumber': instance.phoneNumber,
       'reservations': instance.reservations?.map((e) => e.toJson()).toList(),
       'isAnonymous': instance.isAnonymous,
+      'email': instance.email,
     };

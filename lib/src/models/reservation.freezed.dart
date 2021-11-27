@@ -29,8 +29,11 @@ class _$ReservationTearOff {
       @HiveField(4) required DateTime reservedDate,
       @HiveField(5) required double price,
       @HiveField(6) required SitTable table,
-      @HiveField(7) required bool cancelled,
-      @HiveField(8) SitInPayment? payment}) {
+      @HiveField(7) ReservationStatus status = ReservationStatus.pending,
+      @HiveField(8) SitInPayment? payment,
+      @HiveField(9) required String restaurantName,
+      @HiveField(10) CustomerStatus customerStatus = CustomerStatus.absent,
+      @HiveField(11) required String restaurantPhoto}) {
     return _Reservation(
       id: id,
       customerId: customerId,
@@ -39,8 +42,11 @@ class _$ReservationTearOff {
       reservedDate: reservedDate,
       price: price,
       table: table,
-      cancelled: cancelled,
+      status: status,
       payment: payment,
+      restaurantName: restaurantName,
+      customerStatus: customerStatus,
+      restaurantPhoto: restaurantPhoto,
     );
   }
 
@@ -69,9 +75,15 @@ mixin _$Reservation {
   @HiveField(6)
   SitTable get table => throw _privateConstructorUsedError;
   @HiveField(7)
-  bool get cancelled => throw _privateConstructorUsedError;
+  ReservationStatus get status => throw _privateConstructorUsedError;
   @HiveField(8)
   SitInPayment? get payment => throw _privateConstructorUsedError;
+  @HiveField(9)
+  String get restaurantName => throw _privateConstructorUsedError;
+  @HiveField(10)
+  CustomerStatus get customerStatus => throw _privateConstructorUsedError;
+  @HiveField(11)
+  String get restaurantPhoto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -92,8 +104,11 @@ abstract class $ReservationCopyWith<$Res> {
       @HiveField(4) DateTime reservedDate,
       @HiveField(5) double price,
       @HiveField(6) SitTable table,
-      @HiveField(7) bool cancelled,
-      @HiveField(8) SitInPayment? payment});
+      @HiveField(7) ReservationStatus status,
+      @HiveField(8) SitInPayment? payment,
+      @HiveField(9) String restaurantName,
+      @HiveField(10) CustomerStatus customerStatus,
+      @HiveField(11) String restaurantPhoto});
 
   $SitTableCopyWith<$Res> get table;
   $SitInPaymentCopyWith<$Res>? get payment;
@@ -116,8 +131,11 @@ class _$ReservationCopyWithImpl<$Res> implements $ReservationCopyWith<$Res> {
     Object? reservedDate = freezed,
     Object? price = freezed,
     Object? table = freezed,
-    Object? cancelled = freezed,
+    Object? status = freezed,
     Object? payment = freezed,
+    Object? restaurantName = freezed,
+    Object? customerStatus = freezed,
+    Object? restaurantPhoto = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -148,14 +166,26 @@ class _$ReservationCopyWithImpl<$Res> implements $ReservationCopyWith<$Res> {
           ? _value.table
           : table // ignore: cast_nullable_to_non_nullable
               as SitTable,
-      cancelled: cancelled == freezed
-          ? _value.cancelled
-          : cancelled // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ReservationStatus,
       payment: payment == freezed
           ? _value.payment
           : payment // ignore: cast_nullable_to_non_nullable
               as SitInPayment?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerStatus: customerStatus == freezed
+          ? _value.customerStatus
+          : customerStatus // ignore: cast_nullable_to_non_nullable
+              as CustomerStatus,
+      restaurantPhoto: restaurantPhoto == freezed
+          ? _value.restaurantPhoto
+          : restaurantPhoto // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -193,8 +223,11 @@ abstract class _$ReservationCopyWith<$Res>
       @HiveField(4) DateTime reservedDate,
       @HiveField(5) double price,
       @HiveField(6) SitTable table,
-      @HiveField(7) bool cancelled,
-      @HiveField(8) SitInPayment? payment});
+      @HiveField(7) ReservationStatus status,
+      @HiveField(8) SitInPayment? payment,
+      @HiveField(9) String restaurantName,
+      @HiveField(10) CustomerStatus customerStatus,
+      @HiveField(11) String restaurantPhoto});
 
   @override
   $SitTableCopyWith<$Res> get table;
@@ -221,8 +254,11 @@ class __$ReservationCopyWithImpl<$Res> extends _$ReservationCopyWithImpl<$Res>
     Object? reservedDate = freezed,
     Object? price = freezed,
     Object? table = freezed,
-    Object? cancelled = freezed,
+    Object? status = freezed,
     Object? payment = freezed,
+    Object? restaurantName = freezed,
+    Object? customerStatus = freezed,
+    Object? restaurantPhoto = freezed,
   }) {
     return _then(_Reservation(
       id: id == freezed
@@ -253,14 +289,26 @@ class __$ReservationCopyWithImpl<$Res> extends _$ReservationCopyWithImpl<$Res>
           ? _value.table
           : table // ignore: cast_nullable_to_non_nullable
               as SitTable,
-      cancelled: cancelled == freezed
-          ? _value.cancelled
-          : cancelled // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ReservationStatus,
       payment: payment == freezed
           ? _value.payment
           : payment // ignore: cast_nullable_to_non_nullable
               as SitInPayment?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerStatus: customerStatus == freezed
+          ? _value.customerStatus
+          : customerStatus // ignore: cast_nullable_to_non_nullable
+              as CustomerStatus,
+      restaurantPhoto: restaurantPhoto == freezed
+          ? _value.restaurantPhoto
+          : restaurantPhoto // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -277,8 +325,11 @@ class _$_Reservation implements _Reservation {
       @HiveField(4) required this.reservedDate,
       @HiveField(5) required this.price,
       @HiveField(6) required this.table,
-      @HiveField(7) required this.cancelled,
-      @HiveField(8) this.payment});
+      @HiveField(7) this.status = ReservationStatus.pending,
+      @HiveField(8) this.payment,
+      @HiveField(9) required this.restaurantName,
+      @HiveField(10) this.customerStatus = CustomerStatus.absent,
+      @HiveField(11) required this.restaurantPhoto});
 
   factory _$_Reservation.fromJson(Map<String, dynamic> json) =>
       _$$_ReservationFromJson(json);
@@ -304,16 +355,27 @@ class _$_Reservation implements _Reservation {
   @override
   @HiveField(6)
   final SitTable table;
+  @JsonKey(defaultValue: ReservationStatus.pending)
   @override
   @HiveField(7)
-  final bool cancelled;
+  final ReservationStatus status;
   @override
   @HiveField(8)
   final SitInPayment? payment;
+  @override
+  @HiveField(9)
+  final String restaurantName;
+  @JsonKey(defaultValue: CustomerStatus.absent)
+  @override
+  @HiveField(10)
+  final CustomerStatus customerStatus;
+  @override
+  @HiveField(11)
+  final String restaurantPhoto;
 
   @override
   String toString() {
-    return 'Reservation(id: $id, customerId: $customerId, restaurantId: $restaurantId, customerName: $customerName, reservedDate: $reservedDate, price: $price, table: $table, cancelled: $cancelled, payment: $payment)';
+    return 'Reservation(id: $id, customerId: $customerId, restaurantId: $restaurantId, customerName: $customerName, reservedDate: $reservedDate, price: $price, table: $table, status: $status, payment: $payment, restaurantName: $restaurantName, customerStatus: $customerStatus, restaurantPhoto: $restaurantPhoto)';
   }
 
   @override
@@ -332,14 +394,31 @@ class _$_Reservation implements _Reservation {
                 other.reservedDate == reservedDate) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.table, table) || other.table == table) &&
-            (identical(other.cancelled, cancelled) ||
-                other.cancelled == cancelled) &&
-            (identical(other.payment, payment) || other.payment == payment));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.payment, payment) || other.payment == payment) &&
+            (identical(other.restaurantName, restaurantName) ||
+                other.restaurantName == restaurantName) &&
+            (identical(other.customerStatus, customerStatus) ||
+                other.customerStatus == customerStatus) &&
+            (identical(other.restaurantPhoto, restaurantPhoto) ||
+                other.restaurantPhoto == restaurantPhoto));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, customerId, restaurantId,
-      customerName, reservedDate, price, table, cancelled, payment);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      customerId,
+      restaurantId,
+      customerName,
+      reservedDate,
+      price,
+      table,
+      status,
+      payment,
+      restaurantName,
+      customerStatus,
+      restaurantPhoto);
 
   @JsonKey(ignore: true)
   @override
@@ -361,8 +440,11 @@ abstract class _Reservation implements Reservation {
       @HiveField(4) required DateTime reservedDate,
       @HiveField(5) required double price,
       @HiveField(6) required SitTable table,
-      @HiveField(7) required bool cancelled,
-      @HiveField(8) SitInPayment? payment}) = _$_Reservation;
+      @HiveField(7) ReservationStatus status,
+      @HiveField(8) SitInPayment? payment,
+      @HiveField(9) required String restaurantName,
+      @HiveField(10) CustomerStatus customerStatus,
+      @HiveField(11) required String restaurantPhoto}) = _$_Reservation;
 
   factory _Reservation.fromJson(Map<String, dynamic> json) =
       _$_Reservation.fromJson;
@@ -390,10 +472,19 @@ abstract class _Reservation implements Reservation {
   SitTable get table;
   @override
   @HiveField(7)
-  bool get cancelled;
+  ReservationStatus get status;
   @override
   @HiveField(8)
   SitInPayment? get payment;
+  @override
+  @HiveField(9)
+  String get restaurantName;
+  @override
+  @HiveField(10)
+  CustomerStatus get customerStatus;
+  @override
+  @HiveField(11)
+  String get restaurantPhoto;
   @override
   @JsonKey(ignore: true)
   _$ReservationCopyWith<_Reservation> get copyWith =>

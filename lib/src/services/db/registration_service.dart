@@ -31,7 +31,8 @@ abstract class RegistationService {
         await FirebaseAuth.instance.signInWithCredential(credential);
     return Customer(
         id: userCredentials.user!.uid,
-        name: userCredentials.user!.displayName!);
+        name: userCredentials.user!.displayName!,
+        email: userCredentials.additionalUserInfo?.profile?["email"]);
   }
 
   static Future<void> signOut() {
