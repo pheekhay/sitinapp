@@ -27,7 +27,6 @@ class Restaurant with _$Restaurant {
     required List<SitTable> tables,
     required bool isReservable,
     required List<SitInRating>? ratings,
-    List<Reservation>? reservations,
     List<String>? photos,
   }) = _Restaurant;
   factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);

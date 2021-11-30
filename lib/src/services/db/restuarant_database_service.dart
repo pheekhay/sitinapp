@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sitinapp/src/models/reservation.dart';
@@ -24,11 +26,7 @@ class RestuarantDatabaseService implements RestaurantDatabaseServiceInterface {
   Future<List<Restaurant>?> getRestaurants({double? long, double? lat}) async {
     List<Restaurant> restaurantResults = [];
     if (long != null && lat != null) {
-      final snapshot = await restaurants
-          .where("location.lat", isEqualTo: lat)
-          .where("location.long", isEqualTo: long)
-          .limit(15)
-          .get();
+      final snapshot = await restaurants.where("location.lat", isEqualTo: lat).where("location.long", isEqualTo: long).limit(15).get();
       if (snapshot.docs.isNotEmpty) {
         for (var doc in snapshot.docs) {
           final result = doc.data() as Map<String, dynamic>?;
@@ -68,29 +66,18 @@ class RestuarantDatabaseService implements RestaurantDatabaseServiceInterface {
       if (result != null) {
         Restaurant restaurant = Restaurant.fromJson(result);
         if (restaurant.ratings != null) {
-          restaurant = Restaurant(
-              id: restaurant.id,
-              name: restaurant.name,
-              photoUrl: restaurant.photoUrl,
-              photos: restaurant.photos,
-              phoneNumber: restaurant.phoneNumber,
-              cusine: restaurant.cusine,
-              closingTime: restaurant.closingTime,
-              location: restaurant.location,
-              tables: restaurant.tables,
-              tags: restaurant.tags,
-              isReservable: restaurant.isReservable,
-              cummulativeRating: restaurant.cummulativeRating,
-              ratings: [rating]);
-        } else {
           restaurant.ratings!.add(rating);
+        } else {
+          restaurant = restaurant.copyWith(ratings: [...restaurant.ratings!, rating]);
         }
         transaction.update(restaurantRef, restaurant.toJson());
         return restaurant;
       } else {
         throw ErrorDescription("rateRestaurant : Restuarant Data is null");
       }
-    }).catchError(() => null);
+    }).catchError((err, stt) {
+      log(err.toString());
+    });
   }
 
   @override
@@ -136,10 +123,7 @@ class RestuarantDatabaseService implements RestaurantDatabaseServiceInterface {
   @override
   Future<List<Restaurant>> searchRestaurant(String name) async {
     List<Restaurant> found = [];
-    final results = await restaurants
-        .where("name", isGreaterThanOrEqualTo: name)
-        .where("name", isLessThanOrEqualTo: name + "\uf8ff")
-        .get();
+    final results = await restaurants.where("name", isGreaterThanOrEqualTo: name).where("name", isLessThanOrEqualTo: name + "\uf8ff").get();
     if (results.docs.isNotEmpty) {
       for (var doc in results.docs) {
         final data = doc.data() as Map<String, dynamic>;

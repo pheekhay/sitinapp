@@ -77,8 +77,7 @@ class _ReviewsState extends State<Reviews> {
                 width: 53.w,
                 child: Card(
                   elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                   color: Colors.white30,
                   child: ReviewChart(
                     oneValue: values?["stars"]?[0].toDouble(),
