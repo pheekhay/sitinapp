@@ -2,11 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sitinapp/dependency_injection.dart';
-import 'package:sitinapp/src/services/db/local/bloc/cached_bloc.dart';
 import 'package:sitinapp/src/theme.dart';
 import 'package:sitinapp/src/user/reservations_view.dart';
 import 'package:sitinapp/src/user/user_Bloc/user_bloc.dart';
@@ -83,255 +82,252 @@ class _SignInViewState extends State<SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CachedBloc>(
-      create: (_) => getDep<CachedBloc>()..add(const CachedEvent.loadFromLocal()),
-      child: BlocListener<CachedBloc, CachedState>(
-        listener: (context, state) {
-          state.maybeWhen(
-              userLoaded: (customer) {
-                Navigator.pushNamed(
-                  context,
-                  "/home",
-                  arguments: customer,
-                );
-              },
-              orElse: () {});
-        },
-        child: Scaffold(
-            body: BlocConsumer<UserBloc, UserState>(
-          listener: (context, state) {
-            if (state is LoadedUser) {
-              log("State is Loaded User");
+    return BlocListener<UserBloc, UserState>(
+      bloc: context.read<UserBloc>()..add(UserEvent.getUser(FirebaseAuth.instance.currentUser!.uid)),
+      listener: (context, state) {
+        state.maybeWhen(
+            loadedUser: (customer) {
               Navigator.pushNamed(
                 context,
                 "/home",
-                arguments: state.user,
+                arguments: customer,
               );
-            } else if (state is LoadingError) {
-              log("Loading error ${state.msg}");
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  backgroundColor: Colors.red,
-                  content: Text(
-                    "Could Not Sign In,Try Again",
-                    style: TextStyle(color: Colors.white),
-                  )));
-            }
-          },
-          builder: (context, state) {
-            if (state is ReadyState) {
-              return Stack(
-                children: [
-                  SizedBox(
-                    width: 100.w,
-                    height: 100.h,
-                    child: Image.asset(
-                      "assets/images/table.jpg",
-                      fit: BoxFit.cover,
-                    ),
+            },
+            orElse: () {});
+      },
+      child: Scaffold(
+          body: BlocConsumer<UserBloc, UserState>(
+        listener: (context, state) {
+          if (state is LoadedUser) {
+            Navigator.pushNamed(
+              context,
+              "/home",
+              arguments: state.user,
+            );
+          } else if (state is LoadingError) {
+            log("Loading error ${state.msg}");
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(
+                  "Could Not Sign In,Try Again",
+                  style: TextStyle(color: Colors.white),
+                )));
+          }
+        },
+        builder: (context, state) {
+          if (state is ReadyState) {
+            return Stack(
+              children: [
+                SizedBox(
+                  width: 100.w,
+                  height: 100.h,
+                  child: Image.asset(
+                    "assets/images/table.jpg",
+                    fit: BoxFit.cover,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(),
-                      CircleAvatar(
-                        radius: 60.sp,
-                        backgroundImage: const AssetImage("assets/images/Logo.jpeg"),
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "Welcome ",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.redAccent),
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
-                          elevation: MaterialStateProperty.all(2),
-                          fixedSize: MaterialStateProperty.all(Size(50.w, 6.h)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              side: BorderSide(
-                                width: .5.w,
-                                color: Colors.red.shade200,
-                              ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    CircleAvatar(
+                      radius: 60.sp,
+                      backgroundImage: const AssetImage("assets/images/Logo.jpeg"),
+                    ),
+                    const Spacer(),
+                    const Text(
+                      "Welcome ",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.redAccent),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+                        elevation: MaterialStateProperty.all(2),
+                        fixedSize: MaterialStateProperty.all(Size(50.w, 6.h)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            side: BorderSide(
+                              width: .5.w,
+                              color: Colors.red.shade200,
                             ),
                           ),
                         ),
-                        child: Text(
-                          "Reserve A Seat",
-                          style: SitInTheme.lightTextTheme.headline4,
-                        ),
-                        onPressed: () {
-                          context.read<UserBloc>().add(const SignInUser(true));
-                        },
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 2.h, top: 5.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              color: Colors.grey[300],
-                              child: Divider(
-                                indent: 20.w,
-                                endIndent: 20.w,
-                                height: .3.h,
-                              ),
-                            ),
-                            Text(
-                              "OR",
-                              style: TextStyle(fontSize: 10, color: Colors.grey[300]),
-                            ),
-                            Container(
-                              color: Colors.grey[300],
-                              child: Divider(
-                                indent: 20.w,
-                                endIndent: 20.w,
-                                height: .3.h,
-                                thickness: 10.sp,
-                              ),
-                            )
-                          ],
-                        ),
+                      child: Text(
+                        "Reserve A Seat",
+                        style: SitInTheme.lightTextTheme.headline4,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          context.read<UserBloc>().add(const SignInUser());
-                        },
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              FontAwesomeIcons.google,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 2.w,
-                            ),
-                            Text(
-                              "Sign In With Google",
-                              style: TextStyle(fontSize: 12.sp, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Spacer()
-                    ],
-                  ),
-                ],
-              );
-            } else if (state is LoadingUser) {
-              return const LoadingWidget();
-            } else {
-              return Stack(
-                children: [
-                  SizedBox(
-                    width: 100.w,
-                    height: 100.h,
-                    child: Image.asset(
-                      "assets/images/table.jpg",
-                      fit: BoxFit.cover,
+                      onPressed: () {
+                        context.read<UserBloc>().add(const UserEvent.signInUser(true));
+                      },
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 2.h, top: 5.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            color: Colors.grey[300],
+                            child: Divider(
+                              indent: 20.w,
+                              endIndent: 20.w,
+                              height: .3.h,
+                            ),
+                          ),
+                          Text(
+                            "OR",
+                            style: TextStyle(fontSize: 10, color: Colors.grey[300]),
+                          ),
+                          Container(
+                            color: Colors.grey[300],
+                            child: Divider(
+                              indent: 20.w,
+                              endIndent: 20.w,
+                              height: .3.h,
+                              thickness: 10.sp,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<UserBloc>().add(const UserEvent.signInUser());
+                      },
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.google,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Text(
+                            "Sign In With Google",
+                            style: TextStyle(fontSize: 12.sp, color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer()
+                  ],
+                ),
+              ],
+            );
+          } else if (state is LoadingUser) {
+            return const LoadingWidget();
+          } else {
+            return Stack(
+              children: [
+                SizedBox(
+                  width: 100.w,
+                  height: 100.h,
+                  child: Image.asset(
+                    "assets/images/table.jpg",
+                    fit: BoxFit.cover,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(),
-                      CircleAvatar(
-                        radius: 60.sp,
-                        backgroundImage: const AssetImage("assets/images/Logo.jpeg"),
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "Welcome ",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.redAccent),
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.grey[100]),
-                          elevation: MaterialStateProperty.all(2),
-                          fixedSize: MaterialStateProperty.all(Size(50.w, 6.h)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              side: BorderSide(
-                                width: .5.w,
-                                color: Colors.red.shade200,
-                              ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    CircleAvatar(
+                      radius: 60.sp,
+                      backgroundImage: const AssetImage("assets/images/Logo.jpeg"),
+                    ),
+                    const Spacer(),
+                    const Text(
+                      "Welcome ",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.redAccent),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.grey[100]),
+                        elevation: MaterialStateProperty.all(2),
+                        fixedSize: MaterialStateProperty.all(Size(50.w, 6.h)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            side: BorderSide(
+                              width: .5.w,
+                              color: Colors.red.shade200,
                             ),
                           ),
                         ),
-                        child: Text(
-                          "Reserve A Seat",
-                          style: SitInTheme.lightTextTheme.headline4,
-                        ),
-                        onPressed: () {
-                          context.read<UserBloc>().add(const SignInUser(true));
-                        },
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 2.h, top: 5.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              color: Colors.grey[300],
-                              child: Divider(
-                                indent: 20.w,
-                                endIndent: 20.w,
-                                height: .3.h,
-                              ),
-                            ),
-                            Text(
-                              "OR",
-                              style: TextStyle(fontSize: 10, color: Colors.grey[300]),
-                            ),
-                            Container(
-                              color: Colors.grey[300],
-                              child: Divider(
-                                indent: 20.w,
-                                endIndent: 20.w,
-                                height: .3.h,
-                                thickness: 10.sp,
-                              ),
-                            )
-                          ],
-                        ),
+                      child: Text(
+                        "Reserve A Seat",
+                        style: SitInTheme.lightTextTheme.headline4,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          context.read<UserBloc>().add(const SignInUser());
-                        },
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              FontAwesomeIcons.google,
-                              color: Colors.red,
+                      onPressed: () {
+                        context.read<UserBloc>().add(const UserEvent.signInUser(true));
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 2.h, top: 5.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            color: Colors.grey[300],
+                            child: Divider(
+                              indent: 20.w,
+                              endIndent: 20.w,
+                              height: .3.h,
                             ),
-                            SizedBox(
-                              width: 5.w,
+                          ),
+                          Text(
+                            "OR",
+                            style: TextStyle(fontSize: 10, color: Colors.grey[300]),
+                          ),
+                          Container(
+                            color: Colors.grey[300],
+                            child: Divider(
+                              indent: 20.w,
+                              endIndent: 20.w,
+                              height: .3.h,
+                              thickness: 10.sp,
                             ),
-                            Text(
-                              "Sign In With Google",
-                              style: TextStyle(fontSize: 12.sp, color: Colors.black),
-                            ),
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                      const Spacer()
-                    ],
-                  ),
-                ],
-              );
-            }
-          },
-        )),
-      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<UserBloc>().add(const UserEvent.signInUser());
+                      },
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.google,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            "Sign In With Google",
+                            style: TextStyle(fontSize: 12.sp, color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer()
+                  ],
+                ),
+              ],
+            );
+          }
+        },
+      )),
     );
   }
 

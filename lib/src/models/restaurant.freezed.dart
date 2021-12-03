@@ -35,7 +35,6 @@ class _$RestaurantTearOff {
       required List<SitTable> tables,
       required bool isReservable,
       required List<SitInRating>? ratings,
-      List<Reservation>? reservations,
       List<String>? photos}) {
     return _Restaurant(
       id: id,
@@ -51,7 +50,6 @@ class _$RestaurantTearOff {
       tables: tables,
       isReservable: isReservable,
       ratings: ratings,
-      reservations: reservations,
       photos: photos,
     );
   }
@@ -79,7 +77,6 @@ mixin _$Restaurant {
   List<SitTable> get tables => throw _privateConstructorUsedError;
   bool get isReservable => throw _privateConstructorUsedError;
   List<SitInRating>? get ratings => throw _privateConstructorUsedError;
-  List<Reservation>? get reservations => throw _privateConstructorUsedError;
   List<String>? get photos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -107,7 +104,6 @@ abstract class $RestaurantCopyWith<$Res> {
       List<SitTable> tables,
       bool isReservable,
       List<SitInRating>? ratings,
-      List<Reservation>? reservations,
       List<String>? photos});
 
   $LocationCopyWith<$Res> get location;
@@ -136,7 +132,6 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
     Object? tables = freezed,
     Object? isReservable = freezed,
     Object? ratings = freezed,
-    Object? reservations = freezed,
     Object? photos = freezed,
   }) {
     return _then(_value.copyWith(
@@ -192,10 +187,6 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as List<SitInRating>?,
-      reservations: reservations == freezed
-          ? _value.reservations
-          : reservations // ignore: cast_nullable_to_non_nullable
-              as List<Reservation>?,
       photos: photos == freezed
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
@@ -231,7 +222,6 @@ abstract class _$RestaurantCopyWith<$Res> implements $RestaurantCopyWith<$Res> {
       List<SitTable> tables,
       bool isReservable,
       List<SitInRating>? ratings,
-      List<Reservation>? reservations,
       List<String>? photos});
 
   @override
@@ -263,7 +253,6 @@ class __$RestaurantCopyWithImpl<$Res> extends _$RestaurantCopyWithImpl<$Res>
     Object? tables = freezed,
     Object? isReservable = freezed,
     Object? ratings = freezed,
-    Object? reservations = freezed,
     Object? photos = freezed,
   }) {
     return _then(_Restaurant(
@@ -319,10 +308,6 @@ class __$RestaurantCopyWithImpl<$Res> extends _$RestaurantCopyWithImpl<$Res>
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as List<SitInRating>?,
-      reservations: reservations == freezed
-          ? _value.reservations
-          : reservations // ignore: cast_nullable_to_non_nullable
-              as List<Reservation>?,
       photos: photos == freezed
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
@@ -349,7 +334,6 @@ class _$_Restaurant extends _Restaurant {
       required this.tables,
       required this.isReservable,
       required this.ratings,
-      this.reservations,
       this.photos})
       : super._();
 
@@ -384,13 +368,11 @@ class _$_Restaurant extends _Restaurant {
   @override
   final List<SitInRating>? ratings;
   @override
-  final List<Reservation>? reservations;
-  @override
   final List<String>? photos;
 
   @override
   String toString() {
-    return 'Restaurant(id: $id, name: $name, cusine: $cusine, phoneNumber: $phoneNumber, photoUrl: $photoUrl, closingTime: $closingTime, location: $location, tags: $tags, specialNote: $specialNote, cummulativeRating: $cummulativeRating, tables: $tables, isReservable: $isReservable, ratings: $ratings, reservations: $reservations, photos: $photos)';
+    return 'Restaurant(id: $id, name: $name, cusine: $cusine, phoneNumber: $phoneNumber, photoUrl: $photoUrl, closingTime: $closingTime, location: $location, tags: $tags, specialNote: $specialNote, cummulativeRating: $cummulativeRating, tables: $tables, isReservable: $isReservable, ratings: $ratings, photos: $photos)';
   }
 
   @override
@@ -418,8 +400,6 @@ class _$_Restaurant extends _Restaurant {
             (identical(other.isReservable, isReservable) ||
                 other.isReservable == isReservable) &&
             const DeepCollectionEquality().equals(other.ratings, ratings) &&
-            const DeepCollectionEquality()
-                .equals(other.reservations, reservations) &&
             const DeepCollectionEquality().equals(other.photos, photos));
   }
 
@@ -439,7 +419,6 @@ class _$_Restaurant extends _Restaurant {
       const DeepCollectionEquality().hash(tables),
       isReservable,
       const DeepCollectionEquality().hash(ratings),
-      const DeepCollectionEquality().hash(reservations),
       const DeepCollectionEquality().hash(photos));
 
   @JsonKey(ignore: true)
@@ -468,7 +447,6 @@ abstract class _Restaurant extends Restaurant {
       required List<SitTable> tables,
       required bool isReservable,
       required List<SitInRating>? ratings,
-      List<Reservation>? reservations,
       List<String>? photos}) = _$_Restaurant;
   const _Restaurant._() : super._();
 
@@ -501,8 +479,6 @@ abstract class _Restaurant extends Restaurant {
   bool get isReservable;
   @override
   List<SitInRating>? get ratings;
-  @override
-  List<Reservation>? get reservations;
   @override
   List<String>? get photos;
   @override

@@ -44,15 +44,16 @@ class ReservationDatabaseService implements ReservationDatabaseServiceInterface 
 
   @override
   Stream<List<Reservation>?> liveReservations(String customerId) {
+    List<Reservation>? reservations;
+
     return reservationCollection.where("customerId", isEqualTo: customerId).snapshots().map((event) {
       if (event.docs.isNotEmpty) {
-        List<Reservation>? reservations;
         var docs = event.docs as List<Map<String, dynamic>?>;
         for (var doc in docs) {
           if (doc != null) {
             final reservation = Reservation.fromJson(doc);
             if (reservations != null) {
-              reservations.add(reservation);
+              reservations!.add(reservation);
             } else {
               reservations = [reservation];
             }
@@ -60,6 +61,8 @@ class ReservationDatabaseService implements ReservationDatabaseServiceInterface 
             continue;
           }
         }
+        return reservations;
+      } else {
         return reservations;
       }
     });

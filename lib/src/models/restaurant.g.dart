@@ -25,9 +25,6 @@ _$_Restaurant _$$_RestaurantFromJson(Map<String, dynamic> json) =>
       ratings: (json['ratings'] as List<dynamic>?)
           ?.map((e) => SitInRating.fromJson(e as Map<String, dynamic>))
           .toList(),
-      reservations: (json['reservations'] as List<dynamic>?)
-          ?.map((e) => Reservation.fromJson(e as Map<String, dynamic>))
-          .toList(),
       photos:
           (json['photos'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
@@ -47,6 +44,5 @@ Map<String, dynamic> _$$_RestaurantToJson(_$_Restaurant instance) =>
       'tables': instance.tables.map((e) => e.toJson()).toList(),
       'isReservable': instance.isReservable,
       'ratings': instance.ratings?.map((e) => e.toJson()).toList(),
-      'reservations': instance.reservations?.map((e) => e.toJson()).toList(),
       'photos': instance.photos,
     };

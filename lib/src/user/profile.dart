@@ -47,22 +47,177 @@ class _ProfileViewState extends State<ProfileView> {
       body: BlocBuilder<UserBloc, UserState>(
         bloc: context.read<UserBloc>(),
         builder: (context, state) {
-          if (state is LoadedUser) {
-            nameCtrl.text = state.user?.name ?? "enter name";
-            emailCtrl.text = state.user?.email ?? "enter email";
+          return state.maybeMap(
+            loadedUser: (loaded) {
+              nameCtrl.text = loaded.user?.name ?? "enter name";
+              emailCtrl.text = loaded.user?.email ?? "enter email";
 
-            if (state.user!.isAnonymous) {
+              if (loaded.user!.isAnonymous) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      const Spacer(),
+                      CircleAvatar(
+                        radius: 40.sp,
+                        backgroundColor: Colors.brown,
+                        child: Text(
+                          buildNameInitials(loaded.user?.name),
+                          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text("Anonymous"),
+                      ),
+                      // ElevatedButton(
+                      //   onPressed: () {
+
+                      //     if (change != null) {
+                      //       context.read<UserBloc>().add(UpdateUser(change));
+                      //     }
+                      //   },
+                      //   style: ButtonStyle(
+                      //       backgroundColor:
+                      //           MaterialStateProperty.all(Colors.brown)),
+                      //   child: Text(
+                      //     "Sign In With Google ",
+                      //     style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                      //   ),
+                      // ),
+                      BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+                        if (state is LoadedUser) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              context.read<UserBloc>().add(UserEvent.convertAnonymousUser(state.user!.id));
+                            },
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  FontAwesomeIcons.google,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  "Sign In With Google",
+                                  style: TextStyle(fontSize: 12.sp, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      })
+                    ],
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 100.h,
+                    width: 100.w,
+                    child: Column(
+                      // physics: const BouncingScrollPhysics(),
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // const Spacer(),
+                        CircleAvatar(
+                          radius: 40.sp,
+                          backgroundColor: Colors.brown,
+                          child: Text(
+                            buildNameInitials(loaded.user?.name),
+                            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        TextFieldWidget(
+                          label: 'Full Name',
+                          controller: nameCtrl,
+                        ),
+                        const SizedBox(height: 24),
+                        TextFieldWidget(
+                          label: 'Email',
+                          controller: emailCtrl,
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton(
+                          onPressed: () {
+                            final change = loaded.user?.copyWith(
+                              name: nameCtrl.text,
+                              email: emailCtrl.text,
+                              isAnonymous: false,
+                            );
+                            if (change != null) {
+                              context.read<UserBloc>().add(UserEvent.updateUser(change));
+                            }
+                          },
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.brown)),
+                          child: Text(
+                            "Save",
+                            style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                          ),
+                        ),
+                        // BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+                        //   if (state is LoadedUser) {
+                        //     if (state.user == null) {
+                        //       return ElevatedButton(
+                        //         onPressed: () {
+                        //           context.read<UserBloc>().add(const SignInUser());
+                        //         },
+                        //         style: ButtonStyle(
+                        //             backgroundColor:
+                        //                 MaterialStateProperty.all(Colors.white70)),
+                        //         child: Row(
+                        //           mainAxisSize: MainAxisSize.min,
+                        //           children: [
+                        //             const Icon(
+                        //               FontAwesomeIcons.google,
+                        //               color: Colors.red,
+                        //             ),
+                        //             SizedBox(
+                        //               width: 5.w,
+                        //             ),
+                        //             Text(
+                        //               "Sign In With Google",
+                        //               style: TextStyle(
+                        //                   fontSize: 12.sp, color: Colors.black),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       );
+                        //     } else {
+                        //       return const SizedBox.shrink();
+                        //     }
+                        //   } else {
+                        //     return const SizedBox.shrink();
+                        //   }
+                        // })
+                      ],
+                    ),
+                  ),
+                );
+              }
+            },
+            orElse: () {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   children: [
-                    const Spacer(),
+                    const SizedBox(height: 25),
                     CircleAvatar(
                       radius: 40.sp,
                       backgroundColor: Colors.brown,
                       child: Text(
-                        buildNameInitials(state.user?.name),
+                        buildNameInitials("n a"),
                         style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -87,185 +242,41 @@ class _ProfileViewState extends State<ProfileView> {
                     //   ),
                     // ),
                     BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-                      if (state is LoadedUser) {
-                        return ElevatedButton(
-                          onPressed: () {
-                            context.read<UserBloc>().add(ConvertAnonymousUser(state.user!.id));
-                          },
-                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(
-                                FontAwesomeIcons.google,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                "Sign In With Google",
-                                style: TextStyle(fontSize: 12.sp, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
+                      return state.maybeMap(
+                        loadedUser: (loaded) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              context.read<UserBloc>().add(UserEvent.convertAnonymousUser(loaded.user!.id));
+                            },
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  FontAwesomeIcons.google,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  "Sign In With Google",
+                                  style: TextStyle(fontSize: 12.sp, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        orElse: () {
+                          return Container();
+                        },
+                      );
                     })
                   ],
                 ),
               );
-            } else {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    const Spacer(),
-                    CircleAvatar(
-                      radius: 40.sp,
-                      backgroundColor: Colors.brown,
-                      child: Text(
-                        buildNameInitials(state.user?.name),
-                        style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    TextFieldWidget(
-                      label: 'Full Name',
-                      controller: nameCtrl,
-                    ),
-                    const SizedBox(height: 24),
-                    TextFieldWidget(
-                      label: 'Email',
-                      controller: emailCtrl,
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: () {
-                        final change = state.user?.copyWith(
-                          name: nameCtrl.text,
-                          email: emailCtrl.text,
-                          isAnonymous: false,
-                        );
-                        if (change != null) {
-                          context.read<UserBloc>().add(UpdateUser(change));
-                        }
-                      },
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.brown)),
-                      child: Text(
-                        "Save",
-                        style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                      ),
-                    ),
-                    // BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-                    //   if (state is LoadedUser) {
-                    //     if (state.user == null) {
-                    //       return ElevatedButton(
-                    //         onPressed: () {
-                    //           context.read<UserBloc>().add(const SignInUser());
-                    //         },
-                    //         style: ButtonStyle(
-                    //             backgroundColor:
-                    //                 MaterialStateProperty.all(Colors.white70)),
-                    //         child: Row(
-                    //           mainAxisSize: MainAxisSize.min,
-                    //           children: [
-                    //             const Icon(
-                    //               FontAwesomeIcons.google,
-                    //               color: Colors.red,
-                    //             ),
-                    //             SizedBox(
-                    //               width: 5.w,
-                    //             ),
-                    //             Text(
-                    //               "Sign In With Google",
-                    //               style: TextStyle(
-                    //                   fontSize: 12.sp, color: Colors.black),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       );
-                    //     } else {
-                    //       return const SizedBox.shrink();
-                    //     }
-                    //   } else {
-                    //     return const SizedBox.shrink();
-                    //   }
-                    // })
-                  ],
-                ),
-              );
-            }
-          } else {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const Spacer(),
-                  CircleAvatar(
-                    radius: 40.sp,
-                    backgroundColor: Colors.brown,
-                    child: Text(
-                      buildNameInitials("n a"),
-                      style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("Anonymous"),
-                  ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-
-                  //     if (change != null) {
-                  //       context.read<UserBloc>().add(UpdateUser(change));
-                  //     }
-                  //   },
-                  //   style: ButtonStyle(
-                  //       backgroundColor:
-                  //           MaterialStateProperty.all(Colors.brown)),
-                  //   child: Text(
-                  //     "Sign In With Google ",
-                  //     style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                  //   ),
-                  // ),
-                  BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-                    if (state is LoadedUser) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          context.read<UserBloc>().add(ConvertAnonymousUser(state.user!.id));
-                        },
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white70)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              FontAwesomeIcons.google,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text(
-                              "Sign In With Google",
-                              style: TextStyle(fontSize: 12.sp, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  })
-                ],
-              ),
-            );
-          }
+            },
+          );
         },
       ),
     );

@@ -6,6 +6,7 @@ import 'package:sitinapp/src/services/db/local/user_cache.dart';
 import 'package:sitinapp/src/services/db/reservation_database_service.dart';
 import 'package:sitinapp/src/services/db/restuarant_database_service.dart';
 import 'package:sitinapp/src/services/db/user_database_service.dart';
+import 'package:sitinapp/src/user/reservation_action_bloc/reservation_action_bloc.dart';
 import 'package:sitinapp/src/user/user_Bloc/user_bloc.dart';
 
 GetIt getDep = GetIt.instance;
@@ -19,6 +20,7 @@ Future<void> initDep() async {
   getDep.registerFactory(() => UserBloc(getDep(), getDep()));
   getDep.registerFactory(() => CachedBloc(getDep()));
   getDep.registerFactory(() => ReservationBloc(restaurantDbs: getDep(), reservationDbs: getDep()));
+  getDep.registerFactory(() => ReservationActionBloc(getDep()));
 
   getDep.registerFactory(() => SearchBloc(getDep(), getDep()));
 }

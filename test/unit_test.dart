@@ -26,7 +26,7 @@ void main() {
     blocTest(
       'emits loadedUser when UserEvent.saveUser is added',
       build: () => userBloc,
-      act: (bloc) => userBloc.add(SaveUser(customer)),
+      act: (bloc) => userBloc.add(UserEvent.saveUser(customer)),
       expect: () => LoadedUser(customer),
     );
   });

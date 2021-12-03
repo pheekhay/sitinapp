@@ -23,6 +23,13 @@ class _$ReservationActionEventTearOff {
     );
   }
 
+  _LoadedReservationList loadedReservationList(
+      List<Reservation>? reservations) {
+    return _LoadedReservationList(
+      reservations,
+    );
+  }
+
   _Arrived arrived(String id) {
     return _Arrived(
       id,
@@ -44,6 +51,8 @@ mixin _$ReservationActionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String customerId) streamReservations,
+    required TResult Function(List<Reservation>? reservations)
+        loadedReservationList,
     required TResult Function(String id) arrived,
     required TResult Function(String id) done,
   }) =>
@@ -51,6 +60,7 @@ mixin _$ReservationActionEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
   }) =>
@@ -58,6 +68,7 @@ mixin _$ReservationActionEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
     required TResult orElse(),
@@ -66,6 +77,8 @@ mixin _$ReservationActionEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StreamReservations value) streamReservations,
+    required TResult Function(_LoadedReservationList value)
+        loadedReservationList,
     required TResult Function(_Arrived value) arrived,
     required TResult Function(_Done value) done,
   }) =>
@@ -73,6 +86,7 @@ mixin _$ReservationActionEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
   }) =>
@@ -80,6 +94,7 @@ mixin _$ReservationActionEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
     required TResult orElse(),
@@ -170,6 +185,8 @@ class _$_StreamReservations implements _StreamReservations {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String customerId) streamReservations,
+    required TResult Function(List<Reservation>? reservations)
+        loadedReservationList,
     required TResult Function(String id) arrived,
     required TResult Function(String id) done,
   }) {
@@ -180,6 +197,7 @@ class _$_StreamReservations implements _StreamReservations {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
   }) {
@@ -190,6 +208,7 @@ class _$_StreamReservations implements _StreamReservations {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
     required TResult orElse(),
@@ -204,6 +223,8 @@ class _$_StreamReservations implements _StreamReservations {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StreamReservations value) streamReservations,
+    required TResult Function(_LoadedReservationList value)
+        loadedReservationList,
     required TResult Function(_Arrived value) arrived,
     required TResult Function(_Done value) done,
   }) {
@@ -214,6 +235,7 @@ class _$_StreamReservations implements _StreamReservations {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
   }) {
@@ -224,6 +246,7 @@ class _$_StreamReservations implements _StreamReservations {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
     required TResult orElse(),
@@ -241,6 +264,157 @@ abstract class _StreamReservations implements ReservationActionEvent {
   String get customerId;
   @JsonKey(ignore: true)
   _$StreamReservationsCopyWith<_StreamReservations> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$LoadedReservationListCopyWith<$Res> {
+  factory _$LoadedReservationListCopyWith(_LoadedReservationList value,
+          $Res Function(_LoadedReservationList) then) =
+      __$LoadedReservationListCopyWithImpl<$Res>;
+  $Res call({List<Reservation>? reservations});
+}
+
+/// @nodoc
+class __$LoadedReservationListCopyWithImpl<$Res>
+    extends _$ReservationActionEventCopyWithImpl<$Res>
+    implements _$LoadedReservationListCopyWith<$Res> {
+  __$LoadedReservationListCopyWithImpl(_LoadedReservationList _value,
+      $Res Function(_LoadedReservationList) _then)
+      : super(_value, (v) => _then(v as _LoadedReservationList));
+
+  @override
+  _LoadedReservationList get _value => super._value as _LoadedReservationList;
+
+  @override
+  $Res call({
+    Object? reservations = freezed,
+  }) {
+    return _then(_LoadedReservationList(
+      reservations == freezed
+          ? _value.reservations
+          : reservations // ignore: cast_nullable_to_non_nullable
+              as List<Reservation>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_LoadedReservationList implements _LoadedReservationList {
+  const _$_LoadedReservationList(this.reservations);
+
+  @override
+  final List<Reservation>? reservations;
+
+  @override
+  String toString() {
+    return 'ReservationActionEvent.loadedReservationList(reservations: $reservations)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LoadedReservationList &&
+            const DeepCollectionEquality()
+                .equals(other.reservations, reservations));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(reservations));
+
+  @JsonKey(ignore: true)
+  @override
+  _$LoadedReservationListCopyWith<_LoadedReservationList> get copyWith =>
+      __$LoadedReservationListCopyWithImpl<_LoadedReservationList>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String customerId) streamReservations,
+    required TResult Function(List<Reservation>? reservations)
+        loadedReservationList,
+    required TResult Function(String id) arrived,
+    required TResult Function(String id) done,
+  }) {
+    return loadedReservationList(reservations);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
+    TResult Function(String id)? arrived,
+    TResult Function(String id)? done,
+  }) {
+    return loadedReservationList?.call(reservations);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
+    TResult Function(String id)? arrived,
+    TResult Function(String id)? done,
+    required TResult orElse(),
+  }) {
+    if (loadedReservationList != null) {
+      return loadedReservationList(reservations);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_StreamReservations value) streamReservations,
+    required TResult Function(_LoadedReservationList value)
+        loadedReservationList,
+    required TResult Function(_Arrived value) arrived,
+    required TResult Function(_Done value) done,
+  }) {
+    return loadedReservationList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
+    TResult Function(_Arrived value)? arrived,
+    TResult Function(_Done value)? done,
+  }) {
+    return loadedReservationList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
+    TResult Function(_Arrived value)? arrived,
+    TResult Function(_Done value)? done,
+    required TResult orElse(),
+  }) {
+    if (loadedReservationList != null) {
+      return loadedReservationList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoadedReservationList implements ReservationActionEvent {
+  const factory _LoadedReservationList(List<Reservation>? reservations) =
+      _$_LoadedReservationList;
+
+  List<Reservation>? get reservations;
+  @JsonKey(ignore: true)
+  _$LoadedReservationListCopyWith<_LoadedReservationList> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -307,6 +481,8 @@ class _$_Arrived implements _Arrived {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String customerId) streamReservations,
+    required TResult Function(List<Reservation>? reservations)
+        loadedReservationList,
     required TResult Function(String id) arrived,
     required TResult Function(String id) done,
   }) {
@@ -317,6 +493,7 @@ class _$_Arrived implements _Arrived {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
   }) {
@@ -327,6 +504,7 @@ class _$_Arrived implements _Arrived {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
     required TResult orElse(),
@@ -341,6 +519,8 @@ class _$_Arrived implements _Arrived {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StreamReservations value) streamReservations,
+    required TResult Function(_LoadedReservationList value)
+        loadedReservationList,
     required TResult Function(_Arrived value) arrived,
     required TResult Function(_Done value) done,
   }) {
@@ -351,6 +531,7 @@ class _$_Arrived implements _Arrived {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
   }) {
@@ -361,6 +542,7 @@ class _$_Arrived implements _Arrived {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
     required TResult orElse(),
@@ -444,6 +626,8 @@ class _$_Done implements _Done {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String customerId) streamReservations,
+    required TResult Function(List<Reservation>? reservations)
+        loadedReservationList,
     required TResult Function(String id) arrived,
     required TResult Function(String id) done,
   }) {
@@ -454,6 +638,7 @@ class _$_Done implements _Done {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
   }) {
@@ -464,6 +649,7 @@ class _$_Done implements _Done {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String customerId)? streamReservations,
+    TResult Function(List<Reservation>? reservations)? loadedReservationList,
     TResult Function(String id)? arrived,
     TResult Function(String id)? done,
     required TResult orElse(),
@@ -478,6 +664,8 @@ class _$_Done implements _Done {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StreamReservations value) streamReservations,
+    required TResult Function(_LoadedReservationList value)
+        loadedReservationList,
     required TResult Function(_Arrived value) arrived,
     required TResult Function(_Done value) done,
   }) {
@@ -488,6 +676,7 @@ class _$_Done implements _Done {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
   }) {
@@ -498,6 +687,7 @@ class _$_Done implements _Done {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StreamReservations value)? streamReservations,
+    TResult Function(_LoadedReservationList value)? loadedReservationList,
     TResult Function(_Arrived value)? arrived,
     TResult Function(_Done value)? done,
     required TResult orElse(),
@@ -535,6 +725,10 @@ class _$ReservationActionStateTearOff {
     return const LoadingReservation();
   }
 
+  DoneAction doneAction() {
+    return const DoneAction();
+  }
+
   ReservationActionError reservationActionError(String msg) {
     return ReservationActionError(
       msg,
@@ -553,6 +747,7 @@ mixin _$ReservationActionState {
     required TResult Function(List<Reservation>? reservations)
         loadedReservation,
     required TResult Function() loadingReservation,
+    required TResult Function() doneAction,
     required TResult Function(String msg) reservationActionError,
   }) =>
       throw _privateConstructorUsedError;
@@ -561,6 +756,7 @@ mixin _$ReservationActionState {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
   }) =>
       throw _privateConstructorUsedError;
@@ -569,6 +765,7 @@ mixin _$ReservationActionState {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
     required TResult orElse(),
   }) =>
@@ -578,6 +775,7 @@ mixin _$ReservationActionState {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadedReservation value) loadedReservation,
     required TResult Function(LoadingReservation value) loadingReservation,
+    required TResult Function(DoneAction value) doneAction,
     required TResult Function(ReservationActionError value)
         reservationActionError,
   }) =>
@@ -587,6 +785,7 @@ mixin _$ReservationActionState {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
   }) =>
       throw _privateConstructorUsedError;
@@ -595,6 +794,7 @@ mixin _$ReservationActionState {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
     required TResult orElse(),
   }) =>
@@ -661,6 +861,7 @@ class _$Initial implements Initial {
     required TResult Function(List<Reservation>? reservations)
         loadedReservation,
     required TResult Function() loadingReservation,
+    required TResult Function() doneAction,
     required TResult Function(String msg) reservationActionError,
   }) {
     return initial();
@@ -672,6 +873,7 @@ class _$Initial implements Initial {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
   }) {
     return initial?.call();
@@ -683,6 +885,7 @@ class _$Initial implements Initial {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -698,6 +901,7 @@ class _$Initial implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadedReservation value) loadedReservation,
     required TResult Function(LoadingReservation value) loadingReservation,
+    required TResult Function(DoneAction value) doneAction,
     required TResult Function(ReservationActionError value)
         reservationActionError,
   }) {
@@ -710,6 +914,7 @@ class _$Initial implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
   }) {
     return initial?.call(this);
@@ -721,6 +926,7 @@ class _$Initial implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -805,6 +1011,7 @@ class _$LoadedReservation implements LoadedReservation {
     required TResult Function(List<Reservation>? reservations)
         loadedReservation,
     required TResult Function() loadingReservation,
+    required TResult Function() doneAction,
     required TResult Function(String msg) reservationActionError,
   }) {
     return loadedReservation(reservations);
@@ -816,6 +1023,7 @@ class _$LoadedReservation implements LoadedReservation {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
   }) {
     return loadedReservation?.call(reservations);
@@ -827,6 +1035,7 @@ class _$LoadedReservation implements LoadedReservation {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -842,6 +1051,7 @@ class _$LoadedReservation implements LoadedReservation {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadedReservation value) loadedReservation,
     required TResult Function(LoadingReservation value) loadingReservation,
+    required TResult Function(DoneAction value) doneAction,
     required TResult Function(ReservationActionError value)
         reservationActionError,
   }) {
@@ -854,6 +1064,7 @@ class _$LoadedReservation implements LoadedReservation {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
   }) {
     return loadedReservation?.call(this);
@@ -865,6 +1076,7 @@ class _$LoadedReservation implements LoadedReservation {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -930,6 +1142,7 @@ class _$LoadingReservation implements LoadingReservation {
     required TResult Function(List<Reservation>? reservations)
         loadedReservation,
     required TResult Function() loadingReservation,
+    required TResult Function() doneAction,
     required TResult Function(String msg) reservationActionError,
   }) {
     return loadingReservation();
@@ -941,6 +1154,7 @@ class _$LoadingReservation implements LoadingReservation {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
   }) {
     return loadingReservation?.call();
@@ -952,6 +1166,7 @@ class _$LoadingReservation implements LoadingReservation {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -967,6 +1182,7 @@ class _$LoadingReservation implements LoadingReservation {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadedReservation value) loadedReservation,
     required TResult Function(LoadingReservation value) loadingReservation,
+    required TResult Function(DoneAction value) doneAction,
     required TResult Function(ReservationActionError value)
         reservationActionError,
   }) {
@@ -979,6 +1195,7 @@ class _$LoadingReservation implements LoadingReservation {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
   }) {
     return loadingReservation?.call(this);
@@ -990,6 +1207,7 @@ class _$LoadingReservation implements LoadingReservation {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -1002,6 +1220,130 @@ class _$LoadingReservation implements LoadingReservation {
 
 abstract class LoadingReservation implements ReservationActionState {
   const factory LoadingReservation() = _$LoadingReservation;
+}
+
+/// @nodoc
+abstract class $DoneActionCopyWith<$Res> {
+  factory $DoneActionCopyWith(
+          DoneAction value, $Res Function(DoneAction) then) =
+      _$DoneActionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$DoneActionCopyWithImpl<$Res>
+    extends _$ReservationActionStateCopyWithImpl<$Res>
+    implements $DoneActionCopyWith<$Res> {
+  _$DoneActionCopyWithImpl(DoneAction _value, $Res Function(DoneAction) _then)
+      : super(_value, (v) => _then(v as DoneAction));
+
+  @override
+  DoneAction get _value => super._value as DoneAction;
+}
+
+/// @nodoc
+
+class _$DoneAction implements DoneAction {
+  const _$DoneAction();
+
+  @override
+  String toString() {
+    return 'ReservationActionState.doneAction()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DoneAction);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(List<Reservation>? reservations)
+        loadedReservation,
+    required TResult Function() loadingReservation,
+    required TResult Function() doneAction,
+    required TResult Function(String msg) reservationActionError,
+  }) {
+    return doneAction();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(List<Reservation>? reservations)? loadedReservation,
+    TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
+    TResult Function(String msg)? reservationActionError,
+  }) {
+    return doneAction?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(List<Reservation>? reservations)? loadedReservation,
+    TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
+    TResult Function(String msg)? reservationActionError,
+    required TResult orElse(),
+  }) {
+    if (doneAction != null) {
+      return doneAction();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(LoadedReservation value) loadedReservation,
+    required TResult Function(LoadingReservation value) loadingReservation,
+    required TResult Function(DoneAction value) doneAction,
+    required TResult Function(ReservationActionError value)
+        reservationActionError,
+  }) {
+    return doneAction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(LoadedReservation value)? loadedReservation,
+    TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
+    TResult Function(ReservationActionError value)? reservationActionError,
+  }) {
+    return doneAction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(LoadedReservation value)? loadedReservation,
+    TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
+    TResult Function(ReservationActionError value)? reservationActionError,
+    required TResult orElse(),
+  }) {
+    if (doneAction != null) {
+      return doneAction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DoneAction implements ReservationActionState {
+  const factory DoneAction() = _$DoneAction;
 }
 
 /// @nodoc
@@ -1073,6 +1415,7 @@ class _$ReservationActionError implements ReservationActionError {
     required TResult Function(List<Reservation>? reservations)
         loadedReservation,
     required TResult Function() loadingReservation,
+    required TResult Function() doneAction,
     required TResult Function(String msg) reservationActionError,
   }) {
     return reservationActionError(msg);
@@ -1084,6 +1427,7 @@ class _$ReservationActionError implements ReservationActionError {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
   }) {
     return reservationActionError?.call(msg);
@@ -1095,6 +1439,7 @@ class _$ReservationActionError implements ReservationActionError {
     TResult Function()? initial,
     TResult Function(List<Reservation>? reservations)? loadedReservation,
     TResult Function()? loadingReservation,
+    TResult Function()? doneAction,
     TResult Function(String msg)? reservationActionError,
     required TResult orElse(),
   }) {
@@ -1110,6 +1455,7 @@ class _$ReservationActionError implements ReservationActionError {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadedReservation value) loadedReservation,
     required TResult Function(LoadingReservation value) loadingReservation,
+    required TResult Function(DoneAction value) doneAction,
     required TResult Function(ReservationActionError value)
         reservationActionError,
   }) {
@@ -1122,6 +1468,7 @@ class _$ReservationActionError implements ReservationActionError {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
   }) {
     return reservationActionError?.call(this);
@@ -1133,6 +1480,7 @@ class _$ReservationActionError implements ReservationActionError {
     TResult Function(Initial value)? initial,
     TResult Function(LoadedReservation value)? loadedReservation,
     TResult Function(LoadingReservation value)? loadingReservation,
+    TResult Function(DoneAction value)? doneAction,
     TResult Function(ReservationActionError value)? reservationActionError,
     required TResult orElse(),
   }) {

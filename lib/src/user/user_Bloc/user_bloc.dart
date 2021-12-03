@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
 import 'package:sitinapp/src/services/db/local/user_cache.dart';
@@ -9,42 +9,43 @@ import 'package:sitinapp/src/services/db/user_database_service.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
+part 'user_bloc.freezed.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc(this.userdb, this.cache) : super(ReadyState()) {
+  UserBloc(this.userdb, this.cache) : super(const ReadyState()) {
     on<UserEvent>((event, emit) async {
-      if (event is SignInUser) {
-        emit(LoadingUser());
+      if (event is _SignInUser) {
+        emit(const LoadingUser());
         try {
           if (event.isAnon) {
             final user = await RegistationService.signInAnonymously();
-            add(SaveUser(user));
+            add(UserEvent.saveUser(user));
           } else {
             final user = await RegistationService.signInWithGoogle();
-            add(SaveUser(user));
+            add(UserEvent.saveUser(user));
           }
         } catch (e) {
           log("user_bloc: ${e.toString()}");
           emit(LoadingError(e.toString()));
         }
-      } else if (event is ConvertAnonymousUser) {
-        emit(LoadingUser());
+      } else if (event is _ConvertAnonymousUser) {
+        emit(const LoadingUser());
         try {
           var user = await RegistationService.signInWithGoogle();
           user = user.copyWith(id: event.id);
-          add(UpdateUser(user));
+          add(UserEvent.updateUser(user));
         } catch (e) {
           log("user_bloc: ${e.toString()}");
           emit(LoadingError(e.toString()));
         }
-      } else if (event is SignOutUser) {
+      } else if (event is _SignOutUser) {
         try {
           await RegistationService.signOut();
         } catch (e) {
           emit(LoadingError(e.toString()));
         }
-      } else if (event is GetUser) {
-        emit(LoadingUser());
+      } else if (event is _GetUser) {
+        emit(const LoadingUser());
         try {
           final cachedUser = cache.getLocalUser();
           if (cachedUser != null) {
@@ -56,8 +57,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         } catch (e) {
           emit(LoadingError(e.toString()));
         }
-      } else if (event is SaveUser) {
-        emit(LoadingUser());
+      } else if (event is _SaveUser) {
+        emit(const LoadingUser());
         try {
           final user = await userdb.createUser(event.user);
           await cache.saveToCache(user);
@@ -66,8 +67,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         } catch (e) {
           emit(LoadingError(e.toString()));
         }
-      } else if (event is UpdateUser) {
-        emit(LoadingUser());
+      } else if (event is _UpdateUser) {
+        emit(const LoadingUser());
         try {
           final user = await userdb.updateUser(event.user);
           await cache.saveToCache(user);
@@ -82,12 +83,4 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   final UserDatabaseServiceInterface userdb;
   final LocalCacheInterface cache;
-
-  // @override
-  // void onChange(Change<UserState> change) {
-  //   log("currentstate :" + change.currentState.toString());
-  //   log("nextState :" + change.nextState.toString());
-  //   log(change.toString());
-  //   super.onChange(change);
-  // }
 }
