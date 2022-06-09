@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sitinapp/src/models/restaurant.dart';
 import 'package:sitinapp/src/services/db/restuarant_database_service.dart';
@@ -10,8 +9,7 @@ part 'search_state.dart';
 part 'search_bloc.freezed.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc(this.db, this.reservationDb)
-      : super(const SearchState.searchInitial()) {
+  SearchBloc(this.db, this.reservationDb) : super(const SearchState.searchInitial()) {
     on<SearchEvent>((event, emit) async {
       if (event is SearchForRestaurant) {
         emit(const SearchState.searchLoading());

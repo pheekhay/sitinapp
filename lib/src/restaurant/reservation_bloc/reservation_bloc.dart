@@ -6,7 +6,6 @@ import 'package:sitinapp/src/models/sitin_rating.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
 import 'package:sitinapp/src/services/db/reservation_database_service.dart';
 import 'package:sitinapp/src/services/db/restuarant_database_service.dart';
-import 'package:sitinapp/src/services/db/user_database_service.dart';
 import 'package:uuid/uuid.dart';
 
 part 'reservation_event.dart';
@@ -14,8 +13,7 @@ part 'reservation_state.dart';
 part 'reservation_bloc.freezed.dart';
 
 class ReservationBloc extends Bloc<ReservationEvent, ReservationState> {
-  ReservationBloc({required this.reservationDbs, required this.restaurantDbs})
-      : super(const ReservationState.initial()) {
+  ReservationBloc({required this.reservationDbs, required this.restaurantDbs}) : super(const ReservationState.initial()) {
     on<ReservationEvent>((event, emit) async {
       if (event is GetRestaurants) {
         emit(const ReservationState.loading());

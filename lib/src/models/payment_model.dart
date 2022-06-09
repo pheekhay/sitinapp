@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'payment_model.g.dart';
 part 'payment_model.freezed.dart';
@@ -12,6 +14,5 @@ class SitInPayment with _$SitInPayment {
     required double amount,
   }) = _SitInPayment;
 
-  factory SitInPayment.fromJson(Map<String, dynamic> json) =>
-      _$SitInPaymentFromJson(json);
+  factory SitInPayment.fromJson(Map<String, dynamic> json) => _$SitInPaymentFromJson(json);
 }

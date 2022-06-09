@@ -55,7 +55,7 @@ Future<void> reservationArrivalReminder(
       payload: {"id": reservationId},
       displayOnBackground: true,
       displayOnForeground: true,
-      autoDismissable: false,
+      autoDismissible: false,
     ),
     actionButtons: [
       NotificationActionButton(

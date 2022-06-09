@@ -1,4 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sitin_rating.g.dart';
 part 'sitin_rating.freezed.dart';
@@ -14,6 +13,5 @@ class SitInRating with _$SitInRating {
     required double stars,
     String? review,
   }) = _SitInRating;
-  factory SitInRating.fromJson(Map<String, dynamic> json) =>
-      _$SitInRatingFromJson(json);
+  factory SitInRating.fromJson(Map<String, dynamic> json) => _$SitInRatingFromJson(json);
 }

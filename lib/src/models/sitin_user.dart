@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:sitinapp/src/models/reservation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sitin_user.freezed.dart';
@@ -19,6 +18,5 @@ class Customer with _$Customer {
     @HiveField(5) String? email,
   }) = _Customer;
 
-  factory Customer.fromJson(Map<String, dynamic> json) =>
-      _$CustomerFromJson(json);
+  factory Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
 }

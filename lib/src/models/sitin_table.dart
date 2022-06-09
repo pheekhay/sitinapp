@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'sitin_table.g.dart';
@@ -17,8 +16,7 @@ class SitTable with _$SitTable {
     @HiveField(5) @Default(false) bool isReserved,
   }) = _SitTable;
 
-  factory SitTable.fromJson(Map<String, dynamic> json) =>
-      _$SitTableFromJson(json);
+  factory SitTable.fromJson(Map<String, dynamic> json) => _$SitTableFromJson(json);
 }
 
 @HiveType(typeId: 3)

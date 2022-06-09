@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,9 +20,13 @@ class _BookingState extends State<Booking> {
   late LatLng _coordinates;
   @override
   void initState() {
-    _coordinates =
-        LatLng(widget.restaurant.location.lat, widget.restaurant.location.long);
+    _coordinates = LatLng(widget.restaurant.location.lat, widget.restaurant.location.long);
+
     super.initState();
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _mapController = controller;
   }
 
   @override
@@ -37,9 +39,7 @@ class _BookingState extends State<Booking> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text.rich(
-            TextSpan(
-                text: widget.restaurant.specialNote ??
-                    "Welcome to ${widget.restaurant.name}"),
+            TextSpan(text: widget.restaurant.specialNote ?? "Welcome to ${widget.restaurant.name}"),
           ),
         ),
         Text(
@@ -115,10 +115,7 @@ class _BookingState extends State<Booking> {
                     children: [
                       TextSpan(
                         text: widget.restaurant.phoneNumber,
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.brown,
-                            fontSize: 13.sp),
+                        style: GoogleFonts.montserrat(fontWeight: FontWeight.normal, color: Colors.brown, fontSize: 13.sp),
                       ),
                     ],
                   ),
@@ -134,10 +131,7 @@ class _BookingState extends State<Booking> {
                     children: [
                       TextSpan(
                         text: widget.restaurant.cusine,
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.brown,
-                            fontSize: 13.sp),
+                        style: GoogleFonts.montserrat(fontWeight: FontWeight.normal, color: Colors.brown, fontSize: 13.sp),
                       ),
                     ],
                   ),
@@ -153,10 +147,7 @@ class _BookingState extends State<Booking> {
                     children: [
                       TextSpan(
                         text: "MOMO",
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.brown,
-                            fontSize: 13.sp),
+                        style: GoogleFonts.montserrat(fontWeight: FontWeight.normal, color: Colors.brown, fontSize: 13.sp),
                       ),
                     ],
                   ),
@@ -182,10 +173,6 @@ class _BookingState extends State<Booking> {
         ),
       ],
     );
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    _mapController = controller;
   }
 
   Widget _buildBottomSheet(

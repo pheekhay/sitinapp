@@ -86,7 +86,7 @@ class _ReservationStepperState extends State<ReservationStepper> {
             title: const Text('Schedule'),
             subtitle: const Text("Choose the date and time for reservation NB:30 min/reservation"),
             isActive: _currentStep == 1,
-            state: reservedDate != null && reservedTime != null ? StepState.complete : StepState.editing,
+            state: reservedDate != DateTime.now() && reservedTime != TimeOfDay.now() ? StepState.complete : StepState.editing,
             content: SizedBox(
               width: 100.w,
               height: 15.h,

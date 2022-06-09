@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_location.dart';
 import 'package:sitinapp/src/models/sitin_rating.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';

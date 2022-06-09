@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sitinapp/dependency_injection.dart';
@@ -10,7 +9,6 @@ import 'package:sitinapp/src/notifications/firebasenotification.dart';
 import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
 import 'package:sitinapp/src/models/sitin_user.dart';
-import 'package:sitinapp/src/utils/populate_restaurant.dart';
 import 'settings_service.dart';
 
 /// A class that many Widgets can interact with to read user settings, update

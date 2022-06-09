@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
@@ -6,7 +5,7 @@ import 'package:sitinapp/src/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class TableSelectionWidget extends StatefulWidget {
-  TableSelectionWidget({
+  const TableSelectionWidget({
     Key? key,
   }) : super(key: key);
   @override
@@ -18,7 +17,7 @@ class _TopicsState extends State<TableSelectionWidget> {
   List<SitTable> tables = [];
   @override
   void initState() {
-    for (var index in tables) {
+    for (var _ in tables) {
       checks.add(false);
     }
     super.initState();

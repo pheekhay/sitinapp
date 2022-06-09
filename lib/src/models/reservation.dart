@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:sitinapp/src/models/payment_model.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -21,13 +20,10 @@ class Reservation with _$Reservation {
     @HiveField(7) @Default(ReservationStatus.pending) ReservationStatus status,
     @HiveField(8) SitInPayment? payment,
     @HiveField(9) required String restaurantName,
-    @HiveField(10)
-    @Default(CustomerStatus.absent)
-        CustomerStatus customerStatus,
+    @HiveField(10) @Default(CustomerStatus.absent) CustomerStatus customerStatus,
     @HiveField(11) required String restaurantPhoto,
   }) = _Reservation;
-  factory Reservation.fromJson(Map<String, dynamic> json) =>
-      _$ReservationFromJson(json);
+  factory Reservation.fromJson(Map<String, dynamic> json) => _$ReservationFromJson(json);
 }
 
 @HiveType(typeId: 4)

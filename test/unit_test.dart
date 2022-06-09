@@ -20,7 +20,7 @@ void main() {
       customer = const Customer(id: "1", name: "Dave");
     });
     test('intitial state should be ReadyState', () {
-      expect(userBloc.state, ReadyState());
+      expect(userBloc.state, const ReadyState());
     });
 
     blocTest(

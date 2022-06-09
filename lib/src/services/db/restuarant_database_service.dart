@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sitinapp/src/models/reservation.dart';
 import 'package:sitinapp/src/models/sitin_rating.dart';
 import 'package:sitinapp/src/models/restaurant.dart';
 import 'package:sitinapp/src/models/sitin_table.dart';
